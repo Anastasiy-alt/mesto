@@ -1,0 +1,7 @@
+.header{
+    max-width: calc(0.6875 * 100vw);
+    margin-top: calc(0.03515625 * 100vw);
+    min-height: calc(0.0578125 * 100vw);
+    border-bottom: 1px solid rgba(84, 84, 84, .7);
+    margin-bottom: calc(0.03125 * 100vw);
+}

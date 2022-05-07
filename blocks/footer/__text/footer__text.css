@@ -1,0 +1,9 @@
+.footer__text {
+    padding: 0;
+    margin: 0;
+    font-weight: 400;
+    font-size: calc(0.0140625 * 100vw);
+    line-height: calc(0.0171875 * 100vw);
+    color: #545454;
+    margin-bottom: calc(0.046875 * 100vw);
+}

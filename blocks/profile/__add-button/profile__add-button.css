@@ -1,0 +1,13 @@
+.profile__add-button {
+    padding: 0;
+    border: 2px solid #FFFFFF;
+    border-radius: 2px;
+    width: calc(0.1171875 * 100vw);
+    height: calc(0.0390625 * 100vw);
+    background-image: url(../../../images/Vector-pluse.svg);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-color: #000;
+    margin-left: auto;
+    /* margin-left: calc(0.190625 * 100vw); */
+}

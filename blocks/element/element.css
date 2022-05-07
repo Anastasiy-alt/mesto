@@ -1,0 +1,7 @@
+.element {  
+    background-color: #FFF;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    /* justify-self: center; */
+}

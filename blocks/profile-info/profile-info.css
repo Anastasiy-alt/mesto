@@ -1,0 +1,13 @@
+.profile-info {
+    color: #FFF;
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+}
+/* grid-template-columns: fit-content(calc(0.234375 * 100vw)) fit-content(24px); *//* display: grid;
+    grid-template-columns: fit-content(294px) fit-content(24px);
+    grid-template-rows: fit-content(39px) fit-content(18px);
+    gap: 18px 16px;
+    grid-template-areas: 
+        "name button"
+        "info info"; */

@@ -1,0 +1,7 @@
+.profile {
+    color: #FFF;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: calc(0.03984375 * 100vw);
+}

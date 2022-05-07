@@ -1,0 +1,10 @@
+.profile-info__name {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter';
+    font-weight: 500;
+    font-size: calc(0.0328125 * 100vw);
+    line-height: calc(0.0375 * 100vw);
+    font-style: normal;
+    grid-area: name;
+}

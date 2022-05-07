@@ -1,0 +1,8 @@
+.page {
+    background-color: #000;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    font-style: normal;
+    align-content: center;
+    padding-left: calc(0.15625 * 100vw);
+    padding-right: calc(0.15625 * 100vw);
+}
