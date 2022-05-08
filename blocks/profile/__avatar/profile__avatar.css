@@ -2,5 +2,14 @@
     border-radius: 50%;
     max-width: calc(0.09375 * 100vw);
     max-height: calc(0.09375 * 100vw);
+    min-width: 120px;
+    min-height: 120px;
     margin-right: 30px;
+}
+
+@media screen and (max-width: 425px) {
+    .profile__avatar {
+        margin-right: 0;
+        margin-bottom: 26px;
+    }
 }

@@ -4,7 +4,7 @@
     grid-template-columns: repeat(auto-fit, 282px);
     grid-template-rows: 362px;
     gap: 20px 17px;
-    margin-bottom: calc(0.05234375 * 100vw);
+    margin-bottom: clamp(60px, calc(0.05234375 * 100vw), 67px);
     justify-content: center;
     /* padding-right: auto; */
 }

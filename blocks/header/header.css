@@ -1,7 +1,16 @@
 .header{
-    max-width: calc(0.6875 * 100vw);
-    margin-top: calc(0.03515625 * 100vw);
-    min-height: calc(0.0578125 * 100vw);
+    width: calc(0.6875 * 100vw);
+    margin-top: clamp(28px, calc(0.03515625 * 100vw), 45px);
+    /* min-height: calc(0.0578125 * 100vw); */
+    min-height: clamp(56px, calc(0.0578125 * 100vw), 74px);
     border-bottom: 1px solid rgba(84, 84, 84, .7);
-    margin-bottom: calc(0.03125 * 100vw);
+    /* margin-bottom: calc(0.03125 * 100vw); */
+    /* margin-bottom: clamp(20px, calc(0.03125 * 100vw), 100px); */
+    margin-bottom: 38px;
+}
+
+@media screen and (max-width: 425px) {
+    .header {
+        width: 100%;
+    }
 }

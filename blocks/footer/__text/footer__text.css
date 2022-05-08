@@ -2,8 +2,14 @@
     padding: 0;
     margin: 0;
     font-weight: 400;
-    font-size: calc(0.0140625 * 100vw);
-    line-height: calc(0.0171875 * 100vw);
+    font-size: clamp(14px, calc(0.0140625 * 100vw), 18px);
+    line-height: clamp(17px, calc(0.0171875 * 100vw), 22px);
     color: #545454;
-    margin-bottom: calc(0.046875 * 100vw);
+    margin-bottom: clamp(36px, calc(0.046875 * 100vw), 60px);
+}
+
+@media screen and (max-width: 425px) {
+    .footer__text {
+        margin-left: 19px;
+    }
 }

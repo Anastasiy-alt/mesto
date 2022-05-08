@@ -3,8 +3,15 @@
     padding: 0;
     font-family: 'Inter';
     font-weight: 500;
-    font-size: calc(0.0328125 * 100vw);
-    line-height: calc(0.0375 * 100vw);
+    font-size: max(27px, calc(0.0328125 * 100vw));
+    line-height: max(30px, calc(0.0375 * 100vw));
     font-style: normal;
     grid-area: name;
+}
+
+@media screen and (max-width: 425px) {
+    .profile-info__name {
+        text-align: center;
+        margin-left: 28px;
+    }
 }

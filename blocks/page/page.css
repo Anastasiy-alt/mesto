@@ -6,3 +6,9 @@
     padding-left: calc(0.15625 * 100vw);
     padding-right: calc(0.15625 * 100vw);
 }
+
+@media screen and (max-width: 425px) {
+    .page {
+        padding: 0;
+    }
+}
