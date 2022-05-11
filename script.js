@@ -1,12 +1,10 @@
 let edit = document.querySelector('.profile-info__edit-button');
 let popup = document.querySelector('.popup');
 let save = document.querySelector('.popup__button');
-let page = document.querySelector('.page');
+
 // console.log(edit);
 function editClick () {
     popup.classList.add('popup_opened');
-    // page.classList.add('popup');
-    
     // console.log('Мы кликнули по элементу');
   }
 edit.addEventListener('click', editClick);
@@ -17,17 +15,13 @@ function closeClick () {
     popup.classList.remove('popup_opened');
   }
 
-
 closepop.addEventListener('click', closeClick);
-
-
 
 // Находим форму в DOM
 let formElement = document.querySelector('.popup__container');
 // Находим поля формы в DOM
 let nameInput = document.querySelector('.popup__item_name');
 let infoInput = document.querySelector('.popup__item_info');
-
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
 function formSubmitHandler (evt) {
