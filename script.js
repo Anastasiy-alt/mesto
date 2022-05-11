@@ -1,9 +1,11 @@
 let edit = document.querySelector('.profile-info__edit-button');
 let popup = document.querySelector('.popup');
 let save = document.querySelector('.popup__button');
+let page = document.querySelector('.page');
 // console.log(edit);
 function editClick () {
     popup.classList.add('popup_opened');
+    // page.classList.add('popup');
     
     // console.log('Мы кликнули по элементу');
   }
