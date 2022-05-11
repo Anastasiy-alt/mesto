@@ -1,13 +1,14 @@
 .profile-info__edit-button {
     border: 1px solid #FFFFFF;
     padding: 0;
+    margin: 0;
     background-color: #000;
     width: clamp(18px, calc(0.01875 * 100vw), 24px);
     height: clamp(18px, calc(0.01875 * 100vw), 24px);
     background-image: url(../../../images/Vector-edit.svg);
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    margin-top: auto;
+    /* margin-top: auto; */
     margin-left: 18px;
     /* display: inline-block;
     vertical-align: bottom; */

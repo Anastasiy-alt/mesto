@@ -1,9 +1,20 @@
 .element__like {
-    border: 0;
     width: 22px;
     height: 19px;
-    /* background-color: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background-color: #FFF;
     background-image: url(../../../images/Vectorlike-2.svg);
     background-repeat: no-repeat;
-    background-position: 50% 50%; */
+    background-position: 50% 50%;
+}
+
+/* .element__like:active .element__like_click {
+    fill: #000;
+} */
+
+.element__like:active {
+    background-image: url(../../../images/Unionblack.svg);
+    opacity: 1;
 }
