@@ -1,0 +1,19 @@
+.popup__close {
+    background-image: url(../../../images/Close\ IconKrest.svg);
+    width: 32px;
+    height: 32px;
+    border: 0;
+    background-color: transparent;
+    margin-top: -40px;
+    margin-left: 438px;
+}
+
+@media screen and (max-width: 625px) {
+    .popup__close {
+        width: 20px;
+        height: 20px;
+        margin-top: -36px;
+        margin-left: 262px;
+        background-image: url(../../../images/Close\ Iconmini.svg);
+    }
+}

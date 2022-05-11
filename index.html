@@ -6,8 +6,8 @@
     <title>Mesto</title>
     <link rel="stylesheet" href="./pages/index.css">
 </head>
-<body class="page">
-    
+<body class="page">  
+
     <header class="header">
         <img src="./images/Vector-2.svg" alt="Место." class="header__logo">
     </header>
@@ -51,6 +51,18 @@
     <footer class="footer">
         <p class="footer__text">&#169; 2022 Mesto Russia</p>
     </footer>
+    <div class="popup">
+        <form class="popup__container">
+            <button class="button popup__close"></button>
+            <p class="popup__heading">Редактировать профиль</p>
+            <fieldset class="popup__input">
+              <input type="text" class="popup__item popup__item_name" value="Жак-Ив Кусто">
+              <input type="text" class="popup__item popup__item_info" value="Исследователь океана">
+            </fieldset>
+            <button class="button popup__button">Сохранить</button>
+        </form>
+    </div>  
 
+    <script src="script.js"></script>
 </body>
 </html>

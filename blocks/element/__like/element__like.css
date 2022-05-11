@@ -1,6 +1,7 @@
 .element__like {
     border: 0;
-    background-color: #FFF;
+    width: 22px;
+    height: 19px;
     /* background-color: none;
     background-image: url(../../../images/Vectorlike-2.svg);
     background-repeat: no-repeat;

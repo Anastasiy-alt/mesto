@@ -1,0 +1,24 @@
+.popup__container {
+    width: 430px;
+    height: 330px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    position: fixed;
+    top: calc(50% - 175px);
+    right: calc(50% - 215px);
+    /* top: calc(50% - calc(0.15625 * 100vw));
+    right: calc(50% - calc(0.15625 * 100vw)); */
+    display: flex;
+    flex-direction: column;
+
+}
+
+@media screen and (max-width: 625px) {
+    .popup__container {
+        width: 282px;
+        height: 322px;
+        top: calc(50% - 161px);
+        right: calc(50% - 141px);
+    }
+}
