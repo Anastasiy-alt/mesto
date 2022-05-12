@@ -11,7 +11,6 @@ function editClick () {
     popup.classList.add('popup_opened');
     infoInput.value = info.textContent;
     nameInput.value = naming.textContent;
-    
   }
 
 function closeClick () {
@@ -23,7 +22,7 @@ function formSubmitHandler (evt) {
     naming.textContent = nameInput.value;
     info.textContent = infoInput.value;
     popup.classList.remove('popup_opened');
-}
+  }
 
 formElement.addEventListener('submit', formSubmitHandler);
 edit.addEventListener('click', editClick);
