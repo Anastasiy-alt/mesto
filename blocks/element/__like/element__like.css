@@ -10,11 +10,7 @@
     background-position: 50% 50%;
 }
 
-/* .element__like:active .element__like_click {
-    fill: #000;
-} */
-
-.element__like:active {
+/* .element__like:active {
     background-image: url(../../../images/Unionblack.svg);
     opacity: 1;
-}
+} */

@@ -14,55 +14,57 @@
 
     <section class="profile">
         <img src="./images/image-2.jpg" alt="Жак-Ив Кусто." class="profile__avatar">
-        <article class="profile-info">
-            <div class="profile-info__title"><h1 class="profile-info__name">Жак-Ив Кусто</h1><button class="profile-info__edit-button button"></button></div>
-            <p class="profile-info__info">Исследователь океана</p>
-        </article>
-        <button class="profile__add-button button"></button>
+        <div class="profile__info-block">
+            <div class="profile__title"><h1 class="profile__name">Жак-Ив Кусто</h1><button class="profile__edit-button button"></button></div>
+            <p class="profile__info">Исследователь океана</p>
+        </div>
+        <button class="profile__add-button button" type="button"></button>
     </section>
 
     <section class="elements">
         <article class="element">
             <img src="./images/dolina.png" alt="Долина ручьёв." class="element__img">
-            <div class="element__title"><h2 class="element__name">Долина ручьёв</h2><button class="element__like button"></button></div>
+            <div class="element__title"><h2 class="element__name">Долина ручьёв</h2><button class="element__like button" type="button"></button></div>
         </article>
         <article class="element">
             <img src="./images/kedr.jpg" alt="Кедр." class="element__img">
-            <div class="element__title"><h2 class="element__name">Кедр</h2><button class="element__like button"></button></div>
+            <div class="element__title"><h2 class="element__name">Кедр</h2><button class="element__like button" type="button"></button></div>
         </article>
         <article class="element">
             <img src="./images/lesok.png" alt="Чугас." class="element__img">
-            <div class="element__title"><h2 class="element__name">Чугас</h2><button class="element__like button"></button></div>
+            <div class="element__title"><h2 class="element__name">Чугас</h2><button class="element__like button" type="button"></button></div>
         </article>
         <article class="element">
-            <img src="./images/snow-forest.png" alt="" class="element__img">
-            <div class="element__title"><h2 class="element__name">Тайга</h2><button class="element__like button"></button></div>
+            <img src="./images/snow-forest.png" alt="Тайга." class="element__img">
+            <div class="element__title"><h2 class="element__name">Тайга</h2><button class="element__like button" type="button"></button></div>
         </article>
         <article class="element">
             <img src="./images/forest.png" alt="Зимний лес." class="element__img">
-            <div class="element__title"><h2 class="element__name">Зимний лес</h2><button class="element__like button"></button></div>
+            <div class="element__title"><h2 class="element__name">Зимний лес</h2><button class="element__like button" type="button"></button></div>
         </article>
         <article class="element">
             <img src="./images/elka.png" alt="Ёлка." class="element__img">
-            <div class="element__title"><h2 class="element__name">Ёлка</h2><button class="element__like button"></button></div>
+            <div class="element__title"><h2 class="element__name">Ёлка</h2><button class="element__like button" type="button"></button></div>
         </article>
     </section>
 
     <footer class="footer">
-        <p class="footer__text">&#169; 2022 Mesto Russia</p>
+        <p class="footer__text">&copy; 2022 Mesto Russia</p>
     </footer>
     <div class="popup">
-        <form class="popup__container">
-            <button class="button popup__close"></button>
-            <p class="popup__heading">Редактировать профиль</p>
+        <div class="popup__container">
+        <button class="button popup__close"></button>
+        <h3 class="popup__heading">Редактировать профиль</h3>
+        <form class="popup__forma" name="forma-popup">
             <fieldset class="popup__input">
-              <input type="text" class="popup__item popup__item_name" value="Жак-Ив Кусто">
-              <input type="text" class="popup__item popup__item_info" value="Исследователь океана">
+              <input type="text" class="popup__item popup__item_input_name" name="name">
+              <input type="text" class="popup__item popup__item_input_info" name="info">
             </fieldset>
-            <button class="button popup__button">Сохранить</button>
+            <button class="button popup__button" type="submit">Сохранить</button>
         </form>
+        </div>
     </div>  
 
-    <script src="script.js"></script>
+    <script src="./scripts/index.js"></script>
 </body>
 </html>

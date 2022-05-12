@@ -1,0 +1,19 @@
+.profile__info {
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+    font-size: clamp(14px, calc(0.0140625 * 100vw), 18px);
+    line-height: clamp(17px, calc(0.0171875 * 100vw), 22px);
+    font-style: normal;
+    grid-area: info;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: min(calc(0.3125 * 100vw), 400px);
+}
+
+@media screen and (max-width: 768px) {
+    .profile__info {
+        text-align: center;
+    }
+}

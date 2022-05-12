@@ -1,5 +1,5 @@
 .header{
-    width: calc(0.6875 * 100vw);
+    width: min(calc(0.6875 * 100vw), 880px);
     margin-top: clamp(28px, calc(0.03515625 * 100vw), 45px);
     /* min-height: calc(0.0578125 * 100vw); */
     min-height: clamp(56px, calc(0.0578125 * 100vw), 74px);
@@ -7,6 +7,7 @@
     /* margin-bottom: calc(0.03125 * 100vw); */
     /* margin-bottom: clamp(20px, calc(0.03125 * 100vw), 100px); */
     margin-bottom: 38px;
+    align-items: center;
 }
 
 @media screen and (max-width: 425px) {

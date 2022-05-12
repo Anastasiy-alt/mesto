@@ -1,4 +1,4 @@
-.profile-info__edit-button {
+.profile__edit-button {
     border: 1px solid #FFFFFF;
     padding: 0;
     margin: 0;
@@ -14,8 +14,8 @@
     vertical-align: bottom; */
 }
 
-@media screen and (max-width: 425px) {
-    .profile-info__edit-button {
+@media screen and (max-width: 768px) {
+    .profile__edit-button {
         margin-left: 10px;
     }
 }

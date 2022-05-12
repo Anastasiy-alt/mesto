@@ -1,0 +1,3 @@
+.footer {
+    width: min(calc(0.6875 * 100vw), 880px);
+}
