@@ -4,6 +4,14 @@
     flex-direction: column;
     row-gap: 16px;
 }
+
+@media screen and (max-width: 768px) {
+    .profile__info-block {
+        width: 100vw;
+        align-items: center;
+    }
+}
+
 /* grid-template-columns: fit-content(calc(0.234375 * 100vw)) fit-content(24px); *//* display: grid;
     grid-template-columns: fit-content(294px) fit-content(24px);
     grid-template-rows: fit-content(39px) fit-content(18px);
