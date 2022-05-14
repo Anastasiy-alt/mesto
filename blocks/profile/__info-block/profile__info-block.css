@@ -7,7 +7,7 @@
 
 @media screen and (max-width: 768px) {
     .profile__info-block {
-        width: 100vw;
+        width: auto;
         align-items: center;
     }
 }

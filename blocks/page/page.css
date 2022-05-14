@@ -15,3 +15,5 @@
         padding: 0;
     }
 }
+
+/* *,*::before,*::after {outline: 1px solid red} Очень крутое правило! Спасибо большое!*/
