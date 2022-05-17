@@ -23,7 +23,7 @@
 
     <section class="elements">
         <article class="element">
-            <img src="./images/dolina.png" alt="Долина ручьёв." class="element__img">
+            <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Долина ручьёв." class="element__img">
             <div class="element__title"><h2 class="element__name">Долина ручьёв</h2><button class="element__like button" type="button"></button></div>
         </article>
         <article class="element">
@@ -51,19 +51,34 @@
     <footer class="footer">
         <p class="footer__text">&copy; 2022 Mesto Russia</p>
     </footer>
-    <div class="popup">
+
+    <div class="popup" id="edit">
         <div class="popup__container">
-        <button class="button popup__close" type="button"></button>
+        <button class="button popup__close" type="button" id="close-edit"></button>
         <h3 class="popup__heading">Редактировать профиль</h3>
         <form class="popup__forma" name="forma-popup">
             <fieldset class="popup__input">
               <input type="text" class="popup__item popup__item_input_name" name="name">
               <input type="text" class="popup__item popup__item_input_info" name="info">
             </fieldset>
-            <button class="button popup__button" type="submit">Сохранить</button>
+            <button class="button popup__button" type="submit" id="button-edit">Сохранить</button>
         </form>
         </div>
     </div>  
+
+    <div class="popup" id="add">
+        <div class="popup__container">
+        <button class="button popup__close" type="button" id="close-add"></button>
+        <h3 class="popup__heading">Новое место</h3>
+        <form class="popup__forma" name="forma-popup">
+            <fieldset class="popup__input">
+              <input type="text" class="popup__item popup__item_input_name" name="title" placeholder="Название">
+              <input type="text" class="popup__item popup__item_input_info" name="link" placeholder="Ссылка на картинку">
+            </fieldset>
+            <button class="button popup__button" type="submit" id="button-add">Создать</button>
+        </form>
+        </div>
+    </div> 
 
     <script src="./scripts/index.js"></script>
 </body>
