@@ -1,4 +1,4 @@
-/* .element__like_click:active {
-    fill: red;
-    fill-opacity: 1;
-} */
+.element__like_click {
+    background-image: url(../../../images/Unionblack.svg);
+    opacity: 1;
+}

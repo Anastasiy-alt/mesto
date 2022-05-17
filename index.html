@@ -42,10 +42,10 @@
             <img src="./images/forest.png" alt="Зимний лес." class="element__img">
             <div class="element__title"><h2 class="element__name">Зимний лес</h2><button class="element__like button" type="button"></button></div>
         </article>
-        <article class="element">
+        <!-- <article class="element">
             <img src="./images/elka.png" alt="Ёлка." class="element__img">
             <div class="element__title"><h2 class="element__name">Ёлка</h2><button class="element__like button" type="button"></button></div>
-        </article>
+        </article> -->
     </section>
 
     <footer class="footer">
@@ -56,7 +56,7 @@
         <div class="popup__container">
         <button class="button popup__close" type="button" id="close-edit"></button>
         <h3 class="popup__heading">Редактировать профиль</h3>
-        <form class="popup__forma" name="forma-popup">
+        <form class="popup__forma" name="forma-info">
             <fieldset class="popup__input">
               <input type="text" class="popup__item popup__item_input_name" name="name">
               <input type="text" class="popup__item popup__item_input_info" name="info">
@@ -70,15 +70,22 @@
         <div class="popup__container">
         <button class="button popup__close" type="button" id="close-add"></button>
         <h3 class="popup__heading">Новое место</h3>
-        <form class="popup__forma" name="forma-popup">
+        <form class="popup__forma" name="forma-add">
             <fieldset class="popup__input">
               <input type="text" class="popup__item popup__item_input_name" name="title" placeholder="Название">
               <input type="text" class="popup__item popup__item_input_info" name="link" placeholder="Ссылка на картинку">
             </fieldset>
-            <button class="button popup__button" type="submit" id="button-add">Создать</button>
+            <button class="button popup__button" type="submit" id="button-add-img">Создать</button>
         </form>
         </div>
     </div> 
+
+    <template id="img-template">
+        <article class="element">
+            <img class="element__img" alt="">
+            <div class="element__title"><h2 class="element__name"></h2><button class="element__like button" type="button"></button></div>
+        </article>
+    </template>
 
     <script src="./scripts/index.js"></script>
 </body>

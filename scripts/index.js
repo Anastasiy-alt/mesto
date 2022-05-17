@@ -2,9 +2,10 @@ let edit = document.querySelector('.profile__edit-button');
 let popup = document.querySelector('.popup');
 let popupEdit = document.querySelector('#edit');
 let popupAdd = document.querySelector('#add');
-let formElement = document.querySelector('.popup__forma');
-let nameInput = document.querySelector('.popup__item_input_name');
-let infoInput = document.querySelector('.popup__item_input_info');
+let formEdit = document.querySelector('[name=forma-info]');
+let formAdd = document.querySelector('[name=forma-add]');
+let nameInput = document.querySelector('[name=name]');
+let infoInput = document.querySelector('[name=info]');
 let naming = document.querySelector('.profile__name');
 let info = document.querySelector('.profile__info');
 let add = document.querySelector('.profile__add-button');
@@ -13,6 +14,8 @@ let closepopEdit = document.querySelector('#close-edit');
 let titleImage = document.querySelector('[name=title]');
 let linkImage = document.querySelector('[name=link]');
 const blockCards = document.querySelector('.elements');
+const buttonAddImg = document.querySelector('#button-add-img');
+
 
 const initialCards = [
   {
@@ -41,17 +44,13 @@ const initialCards = [
   }
 ];
 
-function addSong(artistValue, titleValue) {
-  const songTemplate = document.querySelector('#song-template').content;
-  const songElement = songTemplate.querySelector('.song').cloneNode(true);
+function addImg(t, l) {
+  const imgTemplate = document.querySelector('#img-template').content;
+  const element = imgTemplate.querySelector('.element').cloneNode(true);
 
-  songElement.querySelector('.song__artist').textContent = artistValue;
-  songElement.querySelector('.song__title').textContent = titleValue;
-  songElement.querySelector('.song__like').addEventListener('click', function (evt) {
-  evt.target.classList.toggle('song__like_active', true);
-  });
-  songsContainer.append(songElement);
-
+  element.querySelector('.element__img').src = l;
+  element.querySelector('.element__name').textContent = t;
+  blockCards.append(element);
 }
 
 function addClick () {
@@ -76,14 +75,15 @@ function formSubmitHandler (evt) {
     popupEdit.classList.remove('popup_opened');
 }
 
-// function addImage (evt) { тут добавляются фоточки
-//   evt.preventDefault();
-  
-//   popupAdd.classList.remove('popup_opened');
-// }
-
-formElement.addEventListener('submit', formSubmitHandler);
+formEdit.addEventListener('submit', formSubmitHandler);
 edit.addEventListener('click', editClick);
 closepopEdit.addEventListener('click', closeClick);
 closepopAdd.addEventListener('click', closeClick);
 add.addEventListener('click', addClick);
+buttonAddImg.addEventListener('click', function (evt) {
+  evt.preventDefault();
+  addImg(titleImage.value, linkImage.value);
+  titleImage.value = '';
+  linkImage.value = '';
+  popupAdd.classList.remove('popup_opened');
+});
