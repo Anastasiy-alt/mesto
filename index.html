@@ -29,37 +29,46 @@
         <p class="footer__text">&copy; 2022 Mesto Russia</p>
     </footer>
 
-    <div class="popup" id="edit">
+    <div class="popup popup_for_edit">
         <div class="popup__container">
-        <button class="button popup__close" type="button" id="close-edit"></button>
+        <button class="button popup__close popup__close_for_edit" type="button"></button>
         <h3 class="popup__heading">Редактировать профиль</h3>
         <form class="popup__forma" name="forma-info">
             <fieldset class="popup__input">
               <input type="text" class="popup__item popup__item_input_name" name="name">
               <input type="text" class="popup__item popup__item_input_info" name="info">
             </fieldset>
-            <button class="button popup__button" type="submit" id="button-edit">Сохранить</button>
+            <button class="button popup__button popup__button_for_edit" type="submit">Сохранить</button>
         </form>
         </div>
     </div>  
 
-    <div class="popup" id="add">
+    <div class="popup popup_for_add">
         <div class="popup__container">
-        <button class="button popup__close" type="button" id="close-add"></button>
+        <button class="button popup__close popup__close_for_add" type="button"></button>
         <h3 class="popup__heading">Новое место</h3>
         <form class="popup__forma" name="forma-add">
             <fieldset class="popup__input">
               <input type="text" class="popup__item popup__item_input_name" name="title" placeholder="Название">
               <input type="text" class="popup__item popup__item_input_info" name="link" placeholder="Ссылка на картинку">
             </fieldset>
-            <button class="button popup__button" type="submit" id="button-add-img">Создать</button>
+            <button class="button popup__button popup__button_for_add" type="submit">Создать</button>
         </form>
         </div>
     </div> 
 
-    <template id="img-template">
+    <div class="img-open">
+            <div class="img-open__container">
+                <button class="button popup__close img-open__close" type="button"></button>
+                <img class="img-open__img" alt="" src="./images/elka.png">
+                <p class="img-open__info"></p>
+            </div>
+     </div>
+
+    <template class="img-template">
         <article class="element">
-            <img class="element__img" alt="">
+            <button class="element__delete button" type="button"></button>
+            <img class="element__img" alt="" src="">
             <div class="element__title"><h2 class="element__name"></h2><button class="element__like button" type="button"></button></div>
         </article>
     </template>

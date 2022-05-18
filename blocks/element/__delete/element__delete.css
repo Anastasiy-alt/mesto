@@ -1,0 +1,15 @@
+.element__delete {
+    background-image: url(../../../images/Groupyrna-2.svg);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    width: 18px;
+    height: 19px;
+    position: absolute;
+    z-index: 3;
+    top: 20px;
+    right: 20px;
+}
