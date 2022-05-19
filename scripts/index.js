@@ -13,17 +13,15 @@ let closepopAdd = document.querySelector('.popup__close_for_add');
 let closepopEdit = document.querySelector('.popup__close_for_edit');
 let titleImage = document.querySelector('[name=title]');
 let linkImage = document.querySelector('[name=link]');
-
 const blockCards = document.querySelector('.elements');
 const buttonAddImg = document.querySelector('.popup__button_for_add');
 const imgTemplate = document.querySelector('.img-template').content;
 const element = imgTemplate.querySelector('.element').cloneNode(true);
-console.log(imgTemplate);
 let imgOpen = document.querySelector('.img-open');
-
 let imgBig = document.querySelector('.img-open__img');
 let imgInfo = document.querySelector('.img-open__info');
 let imgClose = document.querySelector('.img-open__close');
+
 const initialCards = [
   {
     name: 'Toshi в толстовке',
@@ -51,18 +49,10 @@ const initialCards = [
   }
 ];
 
-function like () {
+function like (element) { //функция лайка
   element.querySelector('.element__like').addEventListener('click', function (evt) {
     evt.target.classList.toggle('element__like_click');
     });
-}
-
-function addImg (title, link) {
-  element.querySelector('.element__img').src = link;
-  element.querySelector('.element__name').textContent = title;
-  element.querySelector('.element__img').alt = title;
-  like ();
-  blockCards.prepend(element);
 }
 
 function addClick () {
@@ -88,6 +78,24 @@ function formSubmitHandler (evt) { //форма отправки имени и �
     popupEdit.classList.remove('popup_opened');
 }
 
+function openImgFunction (evt) { //функция открытия картинки
+  imgOpen.classList.add('popup_opened');
+  evt.target.classList.toggle('element__like_click');
+  imgBig.src = evt.target.src;
+  imgInfo.textContent = evt.target.alt;
+};
+
+function addImg(title, link) { //функция добавления картинки
+  const imgTemplate = document.querySelector('.img-template').content;
+  const element = imgTemplate.querySelector('.element').cloneNode(true);
+  element.querySelector('.element__img').src = link;
+  element.querySelector('.element__name').textContent = title;
+  element.querySelector('.element__img').alt = title;
+  like (element);
+  element.querySelector('.element__img').addEventListener('click', openImgFunction);
+  blockCards.prepend(element);
+};
+
 formEdit.addEventListener('submit', formSubmitHandler);
 edit.addEventListener('click', editClick);
 closepopEdit.addEventListener('click', closeClick);
@@ -95,7 +103,18 @@ closepopAdd.addEventListener('click', closeClick);
 add.addEventListener('click', addClick);
 imgClose.addEventListener('click', closeClick);
 
-buttonAddImg.addEventListener('click', function (evt) { //добавление картинки
+initialCards.forEach(function (x) { //авто загрузка карточек
+  const imgTemplate = document.querySelector('.img-template').content;
+  const element = imgTemplate.querySelector('.element').cloneNode(true);
+  element.querySelector('.element__name').textContent = x.name;
+  element.querySelector('.element__img').src = x.link;
+  element.querySelector('.element__img').alt = x.name;
+  like (element);
+  element.querySelector('.element__img').addEventListener('click', openImgFunction);
+  blockCards.append(element);
+});
+
+buttonAddImg.addEventListener('click', function (evt) { //вызов функции добавления картинки через кнопку add
   evt.preventDefault();
   addImg(titleImage.value, linkImage.value);
   titleImage.value = '';
@@ -103,19 +122,16 @@ buttonAddImg.addEventListener('click', function (evt) { //добавление �
   popupAdd.classList.remove('popup_opened');
 });
 
-initialCards.forEach(function (x) { //авто загрузка карточек
-  const imgTemplate = document.querySelector('.img-template').content;
-  const element = imgTemplate.querySelector('.element').cloneNode(true);
-  element.querySelector('.element__name').textContent = x.name;
-  element.querySelector('.element__img').src = x.link;
-  element.querySelector('.element__img').alt = x.name;
-  element.querySelector('.element__like').addEventListener('click', function (evt) { //это лайк для авто загруженных карточек
-    evt.target.classList.toggle('element__like_click');
-    });
-  blockCards.append(element);
-});
 
-const card = document.querySelectorAll('.element');
-const cardArray = Array.from(card);
 
-console.log(cardArray);
+
+// buttonAddImg.addEventListener('click', function (evt) { //добавление картинки
+//   evt.preventDefault();
+//   addImg(titleImage.value, linkImage.value);
+//   titleImage.value = '';
+//   linkImage.value = '';
+//   initialCards.unshift('evt');
+//   console.log(evt);
+//   console.log(initialCards.length);
+//   popupAdd.classList.remove('popup_opened');
+// });
