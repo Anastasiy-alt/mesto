@@ -2,4 +2,23 @@
     align-self: flex-end;
     margin-bottom: 8px;
     margin-right: -40px;
+    background-image: url(../../../images/Close\ IconKrest.svg);
+    width: 32px;
+    height: 32px;
+    border: 0;
+    background-color: transparent;
+    margin-top: -40px;
+    margin-left: 438px;
+}
+
+@media screen and (max-width: 625px) {
+    .img-open__close {
+        margin-bottom: 16px;
+        margin-right: 0;
+        width: 20px;
+        height: 20px;
+        margin-top: -36px;
+        margin-left: 200px;
+        background-image: url(../../../images/Close\ Iconmini.svg);
+    }
 }
