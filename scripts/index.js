@@ -1,9 +1,9 @@
 let edit = document.querySelector('.profile__edit-button');
-let popup = document.querySelector('.popup');
+// let popup = document.querySelector('.popup');
 let popupEdit = document.querySelector('.popup_for_edit');
 let popupAdd = document.querySelector('.popup_for_add');
 let formEdit = document.querySelector('[name=forma-info]');
-let formAdd = document.querySelector('[name=forma-add]');
+// let formAdd = document.querySelector('[name=forma-add]');
 let nameInput = document.querySelector('[name=name]');
 let infoInput = document.querySelector('[name=info]');
 let naming = document.querySelector('.profile__name');
@@ -13,15 +13,14 @@ let closepopAdd = document.querySelector('.popup__close_for_add');
 let closepopEdit = document.querySelector('.popup__close_for_edit');
 let titleImage = document.querySelector('[name=title]');
 let linkImage = document.querySelector('[name=link]');
-const blockCards = document.querySelector('.elements');
-const buttonAddImg = document.querySelector('.popup__button_for_add');
-const imgTemplate = document.querySelector('.img-template').content;
-const element = imgTemplate.querySelector('.element').cloneNode(true);
 let imgOpen = document.querySelector('.img-open');
 let imgBig = document.querySelector('.img-open__img');
 let imgInfo = document.querySelector('.img-open__info');
 let imgClose = document.querySelector('.img-open__close');
-
+const blockCards = document.querySelector('.elements');
+const buttonAddImg = document.querySelector('.popup__button_for_add');
+// const imgTemplate = document.querySelector('.img-template').content;
+// const element = imgTemplate.querySelector('.element').cloneNode(true);
 const initialCards = [
   {
     name: 'Toshi в толстовке',
@@ -52,20 +51,26 @@ const initialCards = [
 function like (element) { //функция лайка
   element.querySelector('.element__like').addEventListener('click', function (evt) {
     evt.target.classList.toggle('element__like_click');
+    }); //если добавить карточку без картинки, на её месте появляются лайки при открытии -- это фича, а не баг
+}
+
+function deleteCard (element) { //функция удаления карточки
+  element.querySelector('.element__delete').addEventListener('click', function (evt) {
+    element.remove();
     });
 }
 
-function addClick () {
+function addClick () { //открытие попапа добавления карточки
   popupAdd.classList.add('popup_opened');
 }
 
-function editClick () {
+function editClick () { //открытие попапа редактирования профиля
     popupEdit.classList.add('popup_opened');
     infoInput.value = info.textContent;
     nameInput.value = naming.textContent;
 }
 
-function closeClick () {
+function closeClick () { //закрытие попапа
   popupEdit.classList.remove('popup_opened');
   popupAdd.classList.remove('popup_opened');
   imgOpen.classList.remove('popup_opened');
@@ -83,6 +88,7 @@ function openImgFunction (evt) { //функция открытия картин�
   evt.target.classList.toggle('element__like_click');
   imgBig.src = evt.target.src;
   imgInfo.textContent = evt.target.alt;
+  imgBig.alt = evt.target.alt;
 };
 
 function addImg(title, link) { //функция добавления картинки
@@ -92,6 +98,7 @@ function addImg(title, link) { //функция добавления карти�
   element.querySelector('.element__name').textContent = title;
   element.querySelector('.element__img').alt = title;
   like (element);
+  deleteCard (element) 
   element.querySelector('.element__img').addEventListener('click', openImgFunction);
   blockCards.prepend(element);
 };
@@ -110,6 +117,7 @@ initialCards.forEach(function (x) { //авто загрузка карточек
   element.querySelector('.element__img').src = x.link;
   element.querySelector('.element__img').alt = x.name;
   like (element);
+  deleteCard (element);
   element.querySelector('.element__img').addEventListener('click', openImgFunction);
   blockCards.append(element);
 });
@@ -121,17 +129,3 @@ buttonAddImg.addEventListener('click', function (evt) { //вызов функц�
   linkImage.value = '';
   popupAdd.classList.remove('popup_opened');
 });
-
-
-
-
-// buttonAddImg.addEventListener('click', function (evt) { //добавление картинки
-//   evt.preventDefault();
-//   addImg(titleImage.value, linkImage.value);
-//   titleImage.value = '';
-//   linkImage.value = '';
-//   initialCards.unshift('evt');
-//   console.log(evt);
-//   console.log(initialCards.length);
-//   popupAdd.classList.remove('popup_opened');
-// });
