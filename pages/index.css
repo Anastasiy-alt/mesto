@@ -32,9 +32,13 @@
 @import url(../blocks/profile/__title/profile__title.css);
 @import url(../blocks/popup/__form/popup__form.css);
 @import url(../blocks/element/__delete/element__delete.css);
-@import url(../blocks/img-open/img-open.css);
-@import url(../blocks/img-open/__container/img-open__container.css);
-@import url(../blocks/img-open/__img/img-open__img.css);
+/* @import url(../blocks/img-open/__img/img-open__img.css);
 @import url(../blocks/img-open/__info/img-open__info.css);
-@import url(../blocks/img-open/__close/img-open__close.css);
+@import url(../blocks/img-open/__close/img-open__close.css); */
 @import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/popup/_for/_img/popup_for_img.css);
+@import url(../blocks/popup/__container/_for/_img/popup__container_for_img.css);
+@import url(../blocks/popup/__close/_for/_img/popup__close_for_img.css);
+@import url(../blocks/popup/__img/popup__img.css);
+@import url(../blocks/popup/__info-img/popup__info-img.css);
+@import url(../blocks/popup);

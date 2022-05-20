@@ -1,7 +1,4 @@
 .img-open__container {
-    display: flex;
-    flex-direction: column;
-    z-index: 4;
     width: auto;
     height: auto;
 }

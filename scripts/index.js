@@ -8,25 +8,25 @@ const profileName = document.querySelector('.profile__name');
 const profileInfo = document.querySelector('.profile__info');
 const addBtnImage = document.querySelector('.profile__add-button');
 const closePopupAdd = document.querySelector('.popup__close_for_add');
-const closepopEdit = document.querySelector('.popup__close_for_edit');
+const closePopupEdit = document.querySelector('.popup__close_for_edit');
 const titleImage = document.querySelector('[name=title]');
 const linkImage = document.querySelector('[name=link]');
-const imagePopup = document.querySelector('.img-open');
-const imgBig = document.querySelector('.img-open__img');
-const imgInfo = document.querySelector('.img-open__info');
-const imgClose = document.querySelector('.img-open__close');
+const imagePopup = document.querySelector('.popup_for_img');
+const imgBig = document.querySelector('.popup__img');
+const imgInfo = document.querySelector('.popup__info-img');
+const imgClose = document.querySelector('.popup__close_for_img');
 const blockCards = document.querySelector('.elements');
 const buttonAddImg = document.querySelector('.popup__button_for_add');
 
 //если добавить карточку без картинки, 
 //на её месте появляются лайки при открытии -- это фича, а не баг
-function bindLikeButtonClickHandler (element) { //функция лайка
+function bindLikeButtonClickHandler (element) { //функция привязки обработчика события клика по лайку
   element.querySelector('.element__like').addEventListener('click', function (evt) {
     evt.target.classList.toggle('element__like_click');
     }); 
 }
 
-//функция удаления карточки
+//функция привязки обработчика события клика по кнопке удаления
 function bindDeleteButtonClickHandler (element) { 
   element.querySelector('.element__delete').addEventListener('click', function (evt) {
     element.remove();
@@ -43,20 +43,15 @@ function closeModalWindow (modalWindow) {
   modalWindow.classList.remove('popup_opened');
 } 
 
-//функция заполнения инпутов
-function fillingInput (info, name) {
-  info.value = profileInfo.textContent;
-  name.value = profileName.textContent;
-}
-
 //открытие попапа редактирования профиля
-function editClick (modalWindow, ) { 
+function editClick (modalWindow) { 
   openModalWindow(modalWindow);
-  fillingInput (infoInput, nameInput);
+  infoInput.value = profileInfo.textContent;
+  nameInput.value = profileName.textContent;
 }
 
 //форма отправки имени и инфо
-function handlerSubmitEditForm (evt) { 
+function handleEditFormSubmit (evt) { 
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileInfo.textContent = infoInput.value;
@@ -64,7 +59,7 @@ function handlerSubmitEditForm (evt) {
 }
 
 //функция открытия картинки
-function handlerOpenImgFunction (evt) { 
+function handleImagePreview (evt) { 
   openModalWindow (imagePopup);
   evt.target.classList.toggle('element__like_click'); //фича
   imgBig.src = evt.target.src;
@@ -73,29 +68,30 @@ function handlerOpenImgFunction (evt) {
 };
 
 //функция поиска картинки и её дабавления
-function searchImg (title, link) {
+function createCard (title, link) {
   const imgTemplate = document.querySelector('.img-template').content;
   const card = imgTemplate.querySelector('.element').cloneNode(true);
-  card.querySelector('.element__img').src = link;
+  const cardImg = card.querySelector('.element__img');
+  cardImg.src = link;
   card.querySelector('.element__name').textContent = title;
-  card.querySelector('.element__img').alt = title;
+  cardImg.alt = title;
   bindLikeButtonClickHandler (card);
   bindDeleteButtonClickHandler (card);
-  card.querySelector('.element__img').addEventListener('click', handlerOpenImgFunction);
-  blockCards.prepend(card);
+  cardImg.addEventListener('click', handleImagePreview);
+  return card;
 }
 
 //авто загрузка карточек
-initialCards.forEach(function (x) { 
-  imgName = x.name;
-  imgLink = x.link;
-  searchImg (imgName, imgLink);
+initialCards.forEach(function (item) { 
+  const card = createCard (item.name, item.link);
+  blockCards.prepend(card);
 });
 
 //вызов функции добавления картинки через кнопку add
 buttonAddImg.addEventListener('click', function (evt) { 
   evt.preventDefault();
-  searchImg (titleImage.value, linkImage.value);
+  const card = createCard (titleImage.value, linkImage.value);
+  blockCards.prepend(card);
   titleImage.value = '';
   linkImage.value = '';
   closeModalWindow (popupAdd);
@@ -103,7 +99,7 @@ buttonAddImg.addEventListener('click', function (evt) {
 
 addBtnImage.addEventListener('click', () => { openModalWindow (popupAdd); });
 editBtnProfile.addEventListener('click', () => { editClick (popupEdit); });
-closepopEdit.addEventListener('click', () => { closeModalWindow (popupEdit); });
+closePopupEdit.addEventListener('click', () => { closeModalWindow (popupEdit); });
 closePopupAdd.addEventListener('click', () => { closeModalWindow (popupAdd); });
 imgClose.addEventListener('click', () => { closeModalWindow (imagePopup); });
-formEdit.addEventListener('submit', handlerSubmitEditForm);
+formEdit.addEventListener('submit', handleEditFormSubmit);
