@@ -44,8 +44,8 @@ function closeModalWindow (modalWindow) {
 } 
 
 //открытие попапа редактирования профиля
-function editClick (modalWindow) { 
-  openModalWindow(modalWindow);
+function handleEditPopupOpen () { 
+  openModalWindow(popupEdit);
   infoInput.value = profileInfo.textContent;
   nameInput.value = profileName.textContent;
 }
@@ -98,7 +98,8 @@ buttonAddImg.addEventListener('click', function (evt) {
 });
 
 addBtnImage.addEventListener('click', () => { openModalWindow (popupAdd); });
-editBtnProfile.addEventListener('click', () => { editClick (popupEdit); });
+editBtnProfile.addEventListener('click', () => { handleEditPopupOpen (popupEdit); });
+editBtnProfile.addEventListener('click', handleEditPopupOpen);
 closePopupEdit.addEventListener('click', () => { closeModalWindow (popupEdit); });
 closePopupAdd.addEventListener('click', () => { closeModalWindow (popupAdd); });
 imgClose.addEventListener('click', () => { closeModalWindow (imagePopup); });
