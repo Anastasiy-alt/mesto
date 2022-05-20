@@ -4,11 +4,6 @@
     background: #FFFFFF;
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
-    /* position: fixed;
-    top: calc(50% - 175px);
-    right: calc(50% - 215px); */
-    /* top: calc(50% - calc(0.15625 * 100vw));
-    right: calc(50% - calc(0.15625 * 100vw)); */
     display: flex;
     flex-direction: column;
     z-index: 4;

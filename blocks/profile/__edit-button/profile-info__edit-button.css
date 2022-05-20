@@ -8,10 +8,7 @@
     background-image: url(../../../images/Vector-edit.svg);
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    /* margin-top: auto; */
     margin-left: 18px;
-    /* display: inline-block;
-    vertical-align: bottom; */
 }
 
 @media screen and (max-width: 768px) {

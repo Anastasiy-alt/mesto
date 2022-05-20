@@ -1,5 +1,6 @@
 .popup__close {
     background-image: url(../../../images/Close\ IconKrest.svg);
+    background-repeat: no-repeat;
     width: 32px;
     height: 32px;
     border: 0;

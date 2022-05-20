@@ -9,7 +9,6 @@
     background-position: 50% 50%;
     background-color: #000;
     margin-left: auto;
-    /* margin-left: calc(0.190625 * 100vw); */
 }
 
 @media screen and (max-width: 768px) {

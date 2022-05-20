@@ -1,15 +1,3 @@
 .img-open {
-    display: flex;
     background-color: rgba(0, 0, 0, 0.9);
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 3;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0.5s, opacity 0.5s ease-in;
 }
