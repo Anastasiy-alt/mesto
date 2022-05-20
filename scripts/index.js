@@ -98,7 +98,6 @@ buttonAddImg.addEventListener('click', function (evt) {
 });
 
 addBtnImage.addEventListener('click', () => { openModalWindow (popupAdd); });
-editBtnProfile.addEventListener('click', () => { handleEditPopupOpen (popupEdit); });
 editBtnProfile.addEventListener('click', handleEditPopupOpen);
 closePopupEdit.addEventListener('click', () => { closeModalWindow (popupEdit); });
 closePopupAdd.addEventListener('click', () => { closeModalWindow (popupAdd); });
