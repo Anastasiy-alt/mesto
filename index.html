@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mesto</title>
     <link rel="stylesheet" href="./pages/index.css">
 </head>
-<body class="page">  
+
+<body class="page">
 
     <header class="header">
         <img src="./images/Vector-2.svg" alt="Место." class="header__logo">
@@ -15,14 +17,17 @@
     <section class="profile">
         <img src="./images/image-2.jpg" alt="Жак-Ив Кусто." class="profile__avatar">
         <div class="profile__info-block">
-            <div class="profile__title"><h1 class="profile__name">Жак-Ив Кусто</h1><button class="profile__edit-button button" type="button"></button></div>
+            <div class="profile__title">
+                <h1 class="profile__name">Жак-Ив Кусто</h1><button class="profile__edit-button button"
+                    type="button"></button>
+            </div>
             <p class="profile__info">Исследователь океана</p>
         </div>
         <button class="profile__add-button button" type="button"></button>
     </section>
 
     <section class="elements">
-        
+
     </section>
 
     <footer class="footer">
@@ -31,31 +36,47 @@
 
     <div class="popup popup_for_edit">
         <div class="popup__container">
-        <button class="button popup__close popup__close_for_edit" type="button"></button>
-        <h3 class="popup__heading">Редактировать профиль</h3>
-        <form class="popup__form" name="forma-info">
-            <fieldset class="popup__input">
-              <input type="text" class="popup__item popup__item_input_name" name="name">
-              <input type="text" class="popup__item popup__item_input_info" name="info">
-            </fieldset>
-            <button class="button popup__button popup__button_for_edit" type="submit">Сохранить</button>
-        </form>
+            <button class="button popup__close popup__close_for_edit" type="button"></button>
+            <h3 class="popup__heading">Редактировать профиль</h3>
+            <form class="popup__form" name="form-info" novalidate>
+                <fieldset class="popup__input">
+                    <label class="popup__label">
+                        <input type="text" class="popup__item popup__item_input_name" name="name" maxlength="40"
+                            minlength="2" required id="name">
+                        <span class="popup__input-error name-error"></span>
+                    </label>
+                    <label class="popup__label">
+                        <input type="text" class="popup__item popup__item_input_info" name="info" maxlength="200"
+                            minlength="2" required id="info">
+                        <span class="popup__input-error info-error"></span>
+                    </label>
+                    <button class="button popup__button popup__button_for_edit" type="submit">Сохранить</button>
+                </fieldset>
+            </form>
         </div>
-    </div>  
+    </div>
 
     <div class="popup popup_for_add">
         <div class="popup__container">
-        <button class="button popup__close popup__close_for_add" type="button"></button>
-        <h3 class="popup__heading">Новое место</h3>
-        <form class="popup__form" name="forma-add">
-            <fieldset class="popup__input">
-              <input type="text" class="popup__item popup__item_input_name" name="title" placeholder="Название">
-              <input type="text" class="popup__item popup__item_input_info" name="link" placeholder="Ссылка на картинку">
-            </fieldset>
-            <button class="button popup__button popup__button_for_add" type="submit">Создать</button>
-        </form>
+            <button class="button popup__close popup__close_for_add" type="button"></button>
+            <h3 class="popup__heading">Новое место</h3>
+            <form class="popup__form" name="form-add" novalidate>
+                <fieldset class="popup__input">
+                    <label class="popup__label">
+                        <input type="text" class="popup__item popup__item_input_name" name="title"
+                            placeholder="Название" maxlength="30" minlength="2" required id="title">
+                        <span class="popup__input-error title-error"></span>
+                    </label>
+                    <label class="popup__label">
+                        <input type="url" class="popup__item popup__item_input_info" name="link"
+                            placeholder="Ссылка на картинку" required id="link">
+                        <span class="popup__input-error link-error"></span>
+                    </label>
+                    <button class="button popup__button popup__button_for_add" type="submit">Создать</button>
+                </fieldset>
+            </form>
         </div>
-    </div> 
+    </div>
 
     <div class="popup popup_for_img">
         <div class="popup__container popup__container_for_img">
@@ -63,16 +84,21 @@
             <img class="popup__img">
             <p class="popup__info-img"></p>
         </div>
-     </div>
+    </div>
 
     <template class="img-template">
         <article class="element">
             <button class="element__delete button" type="button"></button>
             <img class="element__img">
-            <div class="element__title"><h2 class="element__name"></h2><button class="element__like button" type="button"></button></div>
+            <div class="element__title">
+                <h2 class="element__name"></h2>
+                <button class="element__like button" type="button"></button>
+            </div>
         </article>
     </template>
     <script src="./scripts/cards.js"></script>
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validate.js"></script>
 </body>
+
 </html>

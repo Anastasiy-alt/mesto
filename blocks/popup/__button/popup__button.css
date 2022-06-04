@@ -10,7 +10,9 @@
     line-height: 22px;
     text-align: center;
     align-self: center;
-    
+    margin-top: 18px;
+    margin-bottom: 36px;
+    flex-shrink: 0;
 }
 
 @media screen and (max-width: 625px) {
