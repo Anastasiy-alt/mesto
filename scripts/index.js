@@ -1,6 +1,6 @@
 const editBtnProfile = document.querySelector('.profile__edit-button');
-const popupEdit = document.querySelector('.popup_for_edit');
-const popupAdd = document.querySelector('.popup_for_add');
+const popupEditProfile = document.querySelector('.popup_for_edit');
+const popupAddCard = document.querySelector('.popup_for_add');
 const formEdit = document.querySelector('[name=form-info]');
 const formAdd = document.querySelector('[name=form-add]');
 const nameInput = document.querySelector('[name=name]');
@@ -12,14 +12,14 @@ const closePopupAdd = document.querySelector('.popup__close_for_add');
 const closePopupEdit = document.querySelector('.popup__close_for_edit');
 const titleImage = document.querySelector('[name=title]');
 const linkImage = document.querySelector('[name=link]');
-const imagePopup = document.querySelector('.popup_for_img');
+const popupZoomImage = document.querySelector('.popup_for_img');
 const imgBig = document.querySelector('.popup__img');
 const imgInfo = document.querySelector('.popup__info-img');
 const imgClose = document.querySelector('.popup__close_for_img');
 const blockCards = document.querySelector('.elements');
 const buttonAddImg = document.querySelector('.popup__button_for_add');
-const allPopup = Array.from(document.querySelectorAll('.popup'));
-const overlay = document.querySelector('.popup_opened');
+const allPopups = Array.from(document.querySelectorAll('.popup'));
+const imgTemplate = document.querySelector('.img-template').content;
 
 //если добавить карточку без картинки, 
 //на её месте появляются лайки при открытии -- это фича, а не баг
@@ -36,30 +36,31 @@ function bindDeleteButtonClickHandler(element) {
   });
 };
 
+//закрытие попапа через Escape
+function closeEsc(evt) {
+  if (evt.key === 'Escape') {
+    const popup = document.querySelector('.popup_opened');
+      closeModalWindow(popup);
+  };
+};
+
 //открытие попапа
 function openModalWindow(modalWindow) {
   modalWindow.classList.add('popup_opened');
+  // document.addEventListener('keydown', () => { closeEsc(evt, modalWindow); });
+  document.addEventListener('keydown', closeEsc);
+  resetButtonSave(modalWindow, popupValidation);
 };
 
 //закрытие попапа
 function closeModalWindow(modalWindow) {
   modalWindow.classList.remove('popup_opened');
-};
-
-//закрытие попапа через Escape
-function closeEsc(evt) {
-  if (evt.key === 'Escape') {
-    allPopup.forEach((popup) => {
-      if (popup.classList.contains('popup_opened')) {
-        closeModalWindow(popup);
-      };
-    });
-  };
+  document.removeEventListener('keydown', closeEsc);
 };
 
 //закрытие попапа через клик на overlay
 function closeClickOnOverlay() {
-  allPopup.forEach((popup) => {
+  allPopups.forEach((popup) => {
     popup.addEventListener('click', (evt) => {
       if (evt.target.classList.contains('popup_opened')) {
         closeModalWindow(evt.target);
@@ -70,7 +71,7 @@ function closeClickOnOverlay() {
 
 //открытие попапа редактирования профиля
 function handleEditPopupOpen() {
-  openModalWindow(popupEdit);
+  openModalWindow(popupEditProfile);
   infoInput.value = profileInfo.textContent;
   nameInput.value = profileName.textContent;
 };
@@ -80,12 +81,12 @@ function handleEditFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileInfo.textContent = infoInput.value;
-  closeModalWindow(popupEdit);
+  closeModalWindow(popupEditProfile);
 };
 
 //функция открытия картинки
 function handleImagePreview(evt) {
-  openModalWindow(imagePopup);
+  openModalWindow(popupZoomImage);
   evt.target.classList.toggle('element__like_click'); //фича
   imgBig.src = evt.target.src;
   imgInfo.textContent = evt.target.alt;
@@ -94,7 +95,6 @@ function handleImagePreview(evt) {
 
 //функция поиска картинки и её дабавления
 function createCard(title, link) {
-  const imgTemplate = document.querySelector('.img-template').content;
   const card = imgTemplate.querySelector('.element').cloneNode(true);
   const cardImg = card.querySelector('.element__img');
   cardImg.src = link;
@@ -119,14 +119,14 @@ buttonAddImg.addEventListener('click', function (evt) {
   blockCards.prepend(card);
   titleImage.value = '';
   linkImage.value = '';
-  closeModalWindow(popupAdd);
+  closeModalWindow(popupAddCard);
 });
 
-addBtnImage.addEventListener('click', () => { openModalWindow(popupAdd); });
+addBtnImage.addEventListener('click', () => { openModalWindow(popupAddCard); });
 editBtnProfile.addEventListener('click', handleEditPopupOpen);
-closePopupEdit.addEventListener('click', () => { closeModalWindow(popupEdit); });
-closePopupAdd.addEventListener('click', () => { closeModalWindow(popupAdd); });
-imgClose.addEventListener('click', () => { closeModalWindow(imagePopup); });
+closePopupEdit.addEventListener('click', () => { closeModalWindow(popupEditProfile); });
+closePopupAdd.addEventListener('click', () => { closeModalWindow(popupAddCard); });
+imgClose.addEventListener('click', () => { closeModalWindow(popupZoomImage); });
 formEdit.addEventListener('submit', handleEditFormSubmit);
 document.addEventListener('keydown', closeEsc);
 closeClickOnOverlay();
