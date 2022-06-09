@@ -47,9 +47,7 @@ function closeEsc(evt) {
 //открытие попапа
 function openModalWindow(modalWindow) {
   modalWindow.classList.add('popup_opened');
-  // document.addEventListener('keydown', () => { closeEsc(evt, modalWindow); });
   document.addEventListener('keydown', closeEsc);
-  resetButtonSave(modalWindow, popupValidation);
 };
 
 //закрытие попапа
@@ -74,6 +72,7 @@ function handleEditPopupOpen() {
   openModalWindow(popupEditProfile);
   infoInput.value = profileInfo.textContent;
   nameInput.value = profileName.textContent;
+  resetButtonSave(popupEditProfile, popupValidation);
 };
 
 //форма отправки имени и инфо
@@ -120,6 +119,7 @@ buttonAddImg.addEventListener('click', function (evt) {
   titleImage.value = '';
   linkImage.value = '';
   closeModalWindow(popupAddCard);
+  resetButtonSave(popupAddCard, popupValidation);
 });
 
 addBtnImage.addEventListener('click', () => { openModalWindow(popupAddCard); });

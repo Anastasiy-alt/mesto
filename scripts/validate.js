@@ -1,6 +1,3 @@
-const form = document.querySelector('.popup__form');
-const formInput = form.querySelector('.popup__item');
-
 const popupValidation = {
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
@@ -28,7 +25,7 @@ const hideError = (formElement, inputElement) => {
 
 // Функция, которая проверяет валидность поля
 const checkInputValidity = (formElement, inputElement, popupValidation) => {
-    if (!formInput.validity.valid) {
+    if (!inputElement.validity.valid) {
         showError(formElement, inputElement, inputElement.validationMessage, popupValidation);
     } else {
         hideError(formElement, inputElement, popupValidation);
