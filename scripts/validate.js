@@ -93,27 +93,27 @@ class Validity {
     }
 
 // Функция, которая добавляет класс с ошибкой
-    _showError = (inputElement, errorMessage) => {
-        const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
-        inputElement.classList.add(this._form.inputErrorClass);
+    _showError = (input, errorMessage) => {
+        const errorElement = this._formElement.querySelector(`.${input.id}-error`);
+        input.classList.add(this._form.inputErrorClass);
         errorElement.textContent = errorMessage;
         errorElement.classList.add(this._form.errorClass);
     }
 
 // Функция, которая удаляет класс с ошибкой
-    _hideError = (inputElement) => {
-    const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove(this._form.inputErrorClass);
+    _hideError = (input) => {
+    const errorElement = this._formElement.querySelector(`.${input.id}-error`);
+    input.classList.remove(this._form.inputErrorClass);
     errorElement.classList.remove(this._form.errorClass);
     errorElement.textContent = " ";
     };
 
     // Функция, которая проверяет валидность поля
- _checkInputValidity = (inputElement) => {
-    if (!inputElement.validity.valid) {
-        this._showError(inputElement, inputElement.validationMessage);
+ _checkInputValidity = (input) => {
+    if (!input.validity.valid) {
+        this._showError(input, input.validationMessage);
     } else {
-        this._hideError(inputElement);
+        this._hideError(input);
     }
 };
 
@@ -121,9 +121,9 @@ class Validity {
 _setEventListeners () {
     // const buttonElement = formElement.querySelector(popupValidation.submitButtonSelector);
     this._toggleButtonState();
-    this._inputArray.forEach((inputElement) => {
-        inputElement.addEventListener('input', () => {
-            this._checkInputValidity(inputElement);
+    this._inputArray.forEach((input) => {
+        input.addEventListener('input', () => {
+            this._checkInputValidity(input);
             this._toggleButtonState();
         });
     });
@@ -137,8 +137,8 @@ _setEventListeners () {
 };
 
 _hasInvalidInput () {
-    return this._inputArray.some((inputElement) => {
-        return !inputElement.validity.valid;
+    return this._inputArray.some((input) => {
+        return !input.validity.valid;
     });
 };
  _makeButtonDisabled() {
