@@ -1,81 +1,90 @@
-const popupValidation = {
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_type_disabled',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__input-error_active'
-};
+export default class Validity {
+    constructor(formClassList, form) {
+        this._form = formClassList;
+        this._formElement = form;
+        // this._inputArray = Array.from(this._formElement.querySelectorAll(this._form.inputSelector));
+        this._inputList = Array.from(this._formElement.querySelectorAll('.popup__item'));
+        this._buttonElement = this._formElement.querySelector(this._form.submitButtonSelector);
+    };
 
-// Функция, которая добавляет класс с ошибкой
-const showError = (formElement, inputElement, errorMessage, popupValidation) => {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.add(popupValidation.inputErrorClass);
-    errorElement.textContent = errorMessage;
-    errorElement.classList.add(popupValidation.errorClass);
-};
+    // Функция, которая добавляет класс с ошибкой
+    _showError = (inputElement, errorMessage) => {
+        const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
+        inputElement.classList.add(this._form.inputErrorClass);
+        errorElement.textContent = errorMessage;
+        errorElement.classList.add(this._form.errorClass);
+    };
 
-// Функция, которая удаляет класс с ошибкой
-const hideError = (formElement, inputElement) => {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove(popupValidation.inputErrorClass);
-    errorElement.classList.remove(popupValidation.errorClass);
-    errorElement.textContent = " ";
-};
+    // Функция, которая удаляет класс с ошибкой
+    _hideError = (inputElement) => {
+        const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
+        inputElement.classList.remove(this._form.inputErrorClass);
+        errorElement.classList.remove(this._form.errorClass);
+        errorElement.textContent = " ";
+    };
 
-// Функция, которая проверяет валидность поля
-const checkInputValidity = (formElement, inputElement, popupValidation) => {
-    if (!inputElement.validity.valid) {
-        showError(formElement, inputElement, inputElement.validationMessage, popupValidation);
-    } else {
-        hideError(formElement, inputElement, popupValidation);
-    }
-};
+    // Функция, которая проверяет валидность поля
+    _checkInputValidity = (inputElement) => {
+        if (!inputElement.validity.valid) {
+            this._showError(inputElement, inputElement.validationMessage);
+        } else {
+            this._hideError(inputElement);
+        }
+    };
 
-const setEventListeners = (formElement, popupValidation) => {
-    const inputList = Array.from(formElement.querySelectorAll('.popup__item'));
-    const buttonElement = formElement.querySelector(popupValidation.submitButtonSelector);
-    toggleButtonState(inputList, buttonElement, popupValidation);
-    inputList.forEach((inputElement) => {
-        inputElement.addEventListener('input', function () {
-            checkInputValidity(formElement, inputElement, popupValidation);
-            toggleButtonState(inputList, buttonElement, popupValidation);
+    _setEventListeners() {
+        this.toggleButtonState();
+        this._inputList.forEach((inputElement) => {
+            inputElement.addEventListener('input', () => {
+                this._checkInputValidity(inputElement);
+                this.toggleButtonState();
+            });
         });
-    });
-};
+    };
 
-function enableValidation(popupValidation) {
-    const formElementList = document.querySelectorAll(popupValidation.formSelector);
-    formElementList.forEach((formElement) => {
-        setEventListeners(formElement, popupValidation);
-    });
-};
+    enableValidation() {
+        // const formElementList = document.querySelectorAll(popupValidation.formSelector);
+        // formElementList.forEach((formElement) => {
+        //     setEventListeners(formElement, popupValidation);
+        // });
+        this._setEventListeners();
+        this._formElement.addEventListener('submit', (evt) => {
+            evt.preventDefault();
+        })
+    };
 
-function hasInvalidInput(inputList) {
-    return inputList.some((inputElement) => {
-        return !inputElement.validity.valid;
-    });
-};
+    _hasInvalidInput() {
+        return this._inputList.some((inputElement) => {
+            return !inputElement.validity.valid;
+        });
+    };
 
-//функция, которая делает кнопку неактивной 
-function makeButtonDisabled(buttonElement, popupValidation) {
-    buttonElement.classList.add(popupValidation.inactiveButtonClass);
-    buttonElement.disabled = true
-};
-function toggleButtonState(inputList, buttonElement, popupValidation) {
-    if (hasInvalidInput(inputList)) {
-        makeButtonDisabled(buttonElement, popupValidation)
-    } else {
-        buttonElement.classList.remove(popupValidation.inactiveButtonClass);
-        buttonElement.disabled = false;
-    }
-};
+    //функция, которая делает кнопку неактивной 
+    makeButtonDisabled() {
+        this._buttonElement.classList.add(this._form.inactiveButtonClass);
+        this._buttonElement.disabled = true
+    };
 
-//функция, которая сбрасывает кнопку "сохранить"
-//используется в index.js
-function resetButtonSave(popup, popupValidation) {
-    const buttonElement = popup.querySelector(popupValidation.submitButtonSelector);
-    makeButtonDisabled(buttonElement, popupValidation)
-};
+    toggleButtonState() {
+        if (this._hasInvalidInput()) {
+            this.makeButtonDisabled()
+        } else {
+            this._buttonElement.classList.remove(this._form.inactiveButtonClass);
+            this._buttonElement.disabled = false;
+        }
+    };
 
-enableValidation(popupValidation);
+}
+
+// const formEditValidity = new Validity (popupValidation, formEdit);
+// formEditValidity.enableValidation();
+// const formAddValidity = new Validity (popupValidation, formAdd);
+// formAddValidity.enableValidation();
+
+// //функция, которая сбрасывает кнопку "сохранить"
+// //используется в index.js
+// function resetButtonSave(popup, popupValidation) {
+//     const buttonElement = popup.querySelector(popupValidation.submitButtonSelector);
+//     buttonElement.classList.add(popupValidation.inactiveButtonClass);
+//      buttonElement.disabled = true
+// };
