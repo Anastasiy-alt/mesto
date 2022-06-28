@@ -1,11 +1,11 @@
-const popupValidation = {
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_type_disabled',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__input-error_active'
-}
+// const popupValidation = {
+//     formSelector: '.popup__form',
+//     inputSelector: '.popup__input',
+//     submitButtonSelector: '.popup__button',
+//     inactiveButtonClass: 'popup__button_type_disabled',
+//     inputErrorClass: 'popup__input_type_error',
+//     errorClass: 'popup__input-error_active'
+// }
 
 
 
@@ -83,13 +83,12 @@ const popupValidation = {
 // };
 
 
-class Validity {
+export default class Validity {
     constructor (popupValidation, formElement) {
         this._form = popupValidation;
         this._formElement = formElement;
         this._inputArray =  Array.from(this._formElement.querySelectorAll(this._form.inputSelector));
         this._submit = this._formElement.querySelector(this._form.submitButtonSelector);
-
     }
 
 // Функция, которая добавляет класс с ошибкой
@@ -98,6 +97,7 @@ class Validity {
         input.classList.add(this._form.inputErrorClass);
         errorElement.textContent = errorMessage;
         errorElement.classList.add(this._form.errorClass);
+        console.log(this._form);
     }
 
 // Функция, которая удаляет класс с ошибкой
@@ -121,7 +121,7 @@ class Validity {
 _setEventListeners () {
     // const buttonElement = formElement.querySelector(popupValidation.submitButtonSelector);
     this._toggleButtonState();
-    this._inputArray.forEach((input) => {
+    this._inputArray.forEach((input) => { ;
         input.addEventListener('input', () => {
             this._checkInputValidity(input);
             this._toggleButtonState();
@@ -130,10 +130,12 @@ _setEventListeners () {
 };
 
  _enableValidation() {
+     
     this._setEventListeners();
     this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
     })
+    
 };
 
 _hasInvalidInput () {
@@ -158,8 +160,8 @@ _hasInvalidInput () {
 }
 
 
-const formProfileValidity = new Validity (popupValidation, formEdit);
-formProfileValidity._enableValidation();
-const formAddValidity = new Validity (popupValidation, formAdd);
-formAddValidity._enableValidation();
+// const formEditValidity = new Validity (popupValidation, formEdit);
+// formEditValidity._enableValidation();
+// const formAddValidity = new Validity (popupValidation, formAdd);
+// formAddValidity._enableValidation();
 // enableValidation(popupValidation);

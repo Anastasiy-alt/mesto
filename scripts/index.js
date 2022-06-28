@@ -1,25 +1,14 @@
-const editBtnProfile = document.querySelector('.profile__edit-button');
-const popupEditProfile = document.querySelector('.popup_for_edit');
-const popupAddCard = document.querySelector('.popup_for_add');
-const formEdit = document.querySelector('[name=form-info]');
-const formAdd = document.querySelector('[name=form-add]');
-const nameInput = document.querySelector('[name=name]');
-const infoInput = document.querySelector('[name=info]');
-const profileName = document.querySelector('.profile__name');
-const profileInfo = document.querySelector('.profile__info');
-const addBtnImage = document.querySelector('.profile__add-button');
-const closePopupAdd = document.querySelector('.popup__close_for_add');
-const closePopupEdit = document.querySelector('.popup__close_for_edit');
-const titleImage = document.querySelector('[name=title]');
-const linkImage = document.querySelector('[name=link]');
-const popupZoomImage = document.querySelector('.popup_for_img');
-const imgBig = document.querySelector('.popup__img');
-const imgInfo = document.querySelector('.popup__info-img');
-const imgClose = document.querySelector('.popup__close_for_img');
-const blockCards = document.querySelector('.elements');
-const buttonAddImg = document.querySelector('.popup__button_for_add');
-const allPopups = Array.from(document.querySelectorAll('.popup'));
-const imgTemplate = document.querySelector('.img-template').content;
+
+//import Validity from './validate.js';
+
+import {initialCards, editBtnProfile, popupEditProfile, popupAddCard, formEdit, formAdd, nameInput, infoInput, profileName, profileInfo, addBtnImage, closePopupAdd, closePopupEdit, titleImage, linkImage, popupZoomImage, imgBig, imgInfo, imgClose, blockCards, buttonAddImg, allPopups, imgTemplate, popupValidation} from './cards.js';
+
+// const formEditValidity = new Validity (popupValidation, formEdit);
+// formEditValidity._enableValidation();
+// const formAddValidity = new Validity (popupValidation, formAdd);
+// formAddValidity._enableValidation();
+
+
 
 //если добавить карточку без картинки, 
 //на её месте появляются лайки при открытии -- это фича, а не баг
