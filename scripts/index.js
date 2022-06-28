@@ -16,19 +16,15 @@ const closePopupEdit = document.querySelector('.popup__close_for_edit');
 const titleImage = document.querySelector('[name=title]');
 const linkImage = document.querySelector('[name=link]');
 const popupZoomImage = document.querySelector('.popup_for_img');
-// export const imgBig = document.querySelector('.popup__img');
-// export const imgInfo = document.querySelector('.popup__info-img');
 const imgClose = document.querySelector('.popup__close_for_img');
 const blockCards = document.querySelector('.elements');
 const buttonAddImg = document.querySelector('.popup__button_for_add');
 const allPopups = Array.from(document.querySelectorAll('.popup'));
 const imgTemplate = document.querySelector('.img-template').content;
-
 export const popupElement = document.querySelector('.popup_for_img');
 export const popupImage = document.querySelector('.popup__img');
 export const popupImageTitle = document.querySelector('.popup__info-img');
 export const popupCloseButton = document.querySelector('.popup__close_for_img');
-// export const elementCard = document.querySelector('.element');
 const popupValidation = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -37,20 +33,10 @@ const popupValidation = {
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__input-error_active'
 };
-
-initialCards.forEach((item) => {
-  const card = new Card (item, '.img-template');
-  const cardElement = card.generateCard();
-  document.querySelector('.elements').prepend(cardElement);
-});
-
 const formEditValidity = new Validity (popupValidation, formEdit);
-formEditValidity.enableValidation();
 const formAddValidity = new Validity (popupValidation, formAdd);
-formAddValidity.enableValidation();
 
 //функция, которая сбрасывает кнопку "сохранить"
-//используется в index.js
 function resetButtonSave(popup, popupValidation) {
     const buttonElement = popup.querySelector(popupValidation.submitButtonSelector);
     buttonElement.classList.add(popupValidation.inactiveButtonClass);
@@ -58,7 +44,7 @@ function resetButtonSave(popup, popupValidation) {
 };
 
 //закрытие попапа через Escape
-function closeEsc(evt) {
+export function closeEsc(evt) {
   if (evt.key === 'Escape') {
     const popup = document.querySelector('.popup_opened');
     closeModalWindow(popup);
@@ -120,8 +106,9 @@ function createCard(title, link) {
 //вызов функции добавления картинки через кнопку add
 buttonAddImg.addEventListener('click', function (evt) {
   evt.preventDefault();
-  const card = createCard(titleImage.value, linkImage.value);
-  blockCards.prepend(card);
+  const card = new Card(titleImage.value, linkImage.value, '.img-template');
+  const cardElement = card.generateCard()
+  blockCards.prepend(cardElement);
   titleImage.value = '';
   linkImage.value = '';
   closeModalWindow(popupAddCard);
@@ -136,4 +123,10 @@ imgClose.addEventListener('click', () => { closeModalWindow(popupZoomImage); });
 formEdit.addEventListener('submit', handleEditFormSubmit);
 document.addEventListener('keydown', closeEsc);
 closeClickOnOverlay();
-
+formEditValidity.enableValidation();
+formAddValidity.enableValidation();
+initialCards.forEach((item) => {
+  const card = new Card (item.name, item.link, '.img-template');
+  const cardElement = card.generateCard();
+  document.querySelector('.elements').prepend(cardElement);
+});

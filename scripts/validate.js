@@ -2,7 +2,6 @@ export default class Validity {
     constructor(formClassList, form) {
         this._form = formClassList;
         this._formElement = form;
-        // this._inputArray = Array.from(this._formElement.querySelectorAll(this._form.inputSelector));
         this._inputList = Array.from(this._formElement.querySelectorAll('.popup__item'));
         this._buttonElement = this._formElement.querySelector(this._form.submitButtonSelector);
     };
@@ -43,10 +42,6 @@ export default class Validity {
     };
 
     enableValidation() {
-        // const formElementList = document.querySelectorAll(popupValidation.formSelector);
-        // formElementList.forEach((formElement) => {
-        //     setEventListeners(formElement, popupValidation);
-        // });
         this._setEventListeners();
         this._formElement.addEventListener('submit', (evt) => {
             evt.preventDefault();
@@ -75,16 +70,3 @@ export default class Validity {
     };
 
 }
-
-// const formEditValidity = new Validity (popupValidation, formEdit);
-// formEditValidity.enableValidation();
-// const formAddValidity = new Validity (popupValidation, formAdd);
-// formAddValidity.enableValidation();
-
-// //функция, которая сбрасывает кнопку "сохранить"
-// //используется в index.js
-// function resetButtonSave(popup, popupValidation) {
-//     const buttonElement = popup.querySelector(popupValidation.submitButtonSelector);
-//     buttonElement.classList.add(popupValidation.inactiveButtonClass);
-//      buttonElement.disabled = true
-// };

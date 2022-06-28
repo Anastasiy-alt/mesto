@@ -1,9 +1,10 @@
 import {popupImage, popupImageTitle, popupElement, popupCloseButton} from "./index.js";
+import {closeEsc} from "./index.js";
 
 export default class Card {
-  constructor(data, cardSelector) {
-    this._title = data.name;
-    this._link = data.link;
+  constructor(name, link, cardSelector) {
+    this._title = name;
+    this._link = link;
     this._cardSelector = cardSelector;
   }
 
@@ -72,5 +73,4 @@ export default class Card {
       this._handleClickLikeButton();
     });
   };
-
 }
