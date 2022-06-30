@@ -15,10 +15,9 @@ const titleImage = document.querySelector('[name=title]');
 const linkImage = document.querySelector('[name=link]');
 const blockCards = document.querySelector('.elements');
 const allPopups = Array.from(document.querySelectorAll('.popup'));
-const popupElement = document.querySelector('.popup_for_img');
+const imagePopup = document.querySelector('.popup_for_img');
 const popupImage = document.querySelector('.popup__img');
 const popupImageTitle = document.querySelector('.popup__info-img');
-const popups = document.querySelectorAll('.popup')
 
 const popupValidation = {
   formSelector: '.popup__form',
@@ -28,7 +27,6 @@ const popupValidation = {
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__input-error_active'
 };
-
 const formValidators = {}
 
 // Включение валидации
@@ -48,7 +46,7 @@ function handleCardClick(name, link) {
   popupImage.src = link;
   popupImage.alt = name;
   popupImageTitle.textContent = name;
-  openModalWindow(popupElement);
+  openModalWindow(imagePopup);
 }
 
 //закрытие попапа через Escape
@@ -71,17 +69,6 @@ function closeModalWindow(modalWindow) {
   document.removeEventListener('keydown', closeEsc);
 };
 
-//закрытие попапа через клик на overlay
-function closeClickOnOverlay() {
-  allPopups.forEach((popup) => {
-    popup.addEventListener('click', (evt) => {
-      if (evt.target.classList.contains('popup_opened')) {
-        closeModalWindow(evt.target);
-      };
-    });
-  });
-};
-
 //открытие попапа редактирования профиля
 function handleEditPopupOpen() {
   openModalWindow(popupEditProfile);
@@ -89,8 +76,6 @@ function handleEditPopupOpen() {
   nameInput.value = profileName.textContent;
   formValidators['form-info'].resetValidation()
   formValidators['form-info'].makeButtonDisabled()
-  // formEditValidity.resetValidation();
-  // formEditValidity.makeButtonDisabled();
 };
 
 //открытие попапа добавления карточки
@@ -98,7 +83,6 @@ function handleAddCardPopupOpen() {
   openModalWindow(popupAddCard);
   formAdd.reset();
   formValidators['form-add'].resetValidation()
-  // formAddValidity.resetValidation();
 };
 
 //форма отправки имени и инфо
@@ -125,11 +109,9 @@ formAdd.addEventListener('submit', function (evt) {
   blockCards.prepend(card);
   evt.target.reset();
   closeModalWindow(popupAddCard);
-  formValidators['form-add'].makeButtonDisabled()
-  //formAddValidity.makeButtonDisabled();
 });
 
-popups.forEach((popup) => {
+allPopups.forEach((popup) => {
     popup.addEventListener('mousedown', (evt) => {
         if (evt.target.classList.contains('popup_opened')) {
           closeModalWindow(popup)
@@ -149,5 +131,3 @@ addBtnImage.addEventListener('click', handleAddCardPopupOpen);
 editBtnProfile.addEventListener('click', handleEditPopupOpen);
 formEdit.addEventListener('submit', handleEditFormSubmit);
 enableValidation(popupValidation);
-
-// Геннадий, огромное спасибо за такое подробное и молниеносное ревью!
