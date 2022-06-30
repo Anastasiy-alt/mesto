@@ -15,10 +15,10 @@ const titleImage = document.querySelector('[name=title]');
 const linkImage = document.querySelector('[name=link]');
 const blockCards = document.querySelector('.elements');
 const allPopups = Array.from(document.querySelectorAll('.popup'));
-export const popupElement = document.querySelector('.popup_for_img');
-export const popupImage = document.querySelector('.popup__img');
-export const popupImageTitle = document.querySelector('.popup__info-img');
-export const popupCloseButton = document.querySelector('.popup__close_for_img');
+const popupElement = document.querySelector('.popup_for_img');
+const popupImage = document.querySelector('.popup__img');
+const popupImageTitle = document.querySelector('.popup__info-img');
+const popupCloseButton = document.querySelector('.popup__close_for_img');
 const popups = document.querySelectorAll('.popup')
 
 const popupValidation = {
