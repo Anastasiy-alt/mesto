@@ -1,6 +1,3 @@
-import {popupImage, popupImageTitle, popupElement, popupCloseButton} from "./index.js";
-import {closeEsc} from "./index.js";
-
 export default class Card {
   constructor(name, link, cardSelector, handleCardClick) {
     this._title = name;
