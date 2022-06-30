@@ -18,7 +18,6 @@ const allPopups = Array.from(document.querySelectorAll('.popup'));
 const popupElement = document.querySelector('.popup_for_img');
 const popupImage = document.querySelector('.popup__img');
 const popupImageTitle = document.querySelector('.popup__info-img');
-const popupCloseButton = document.querySelector('.popup__close_for_img');
 const popups = document.querySelectorAll('.popup')
 
 const popupValidation = {
