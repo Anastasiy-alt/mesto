@@ -1,6 +1,6 @@
 import Card from './Card.js';
 import {initialCards} from "./cards.js";
-import Validity from './validate.js';
+import FormValidator from './FormValidator.js';
 const editBtnProfile = document.querySelector('.profile__edit-button');
 const popupEditProfile = document.querySelector('.popup_for_edit');
 const popupAddCard = document.querySelector('.popup_for_add');
@@ -11,20 +11,16 @@ const infoInput = document.querySelector('[name=info]');
 const profileName = document.querySelector('.profile__name');
 const profileInfo = document.querySelector('.profile__info');
 const addBtnImage = document.querySelector('.profile__add-button');
-const closePopupAdd = document.querySelector('.popup__close_for_add');
-const closePopupEdit = document.querySelector('.popup__close_for_edit');
 const titleImage = document.querySelector('[name=title]');
 const linkImage = document.querySelector('[name=link]');
-const popupZoomImage = document.querySelector('.popup_for_img');
-const imgClose = document.querySelector('.popup__close_for_img');
 const blockCards = document.querySelector('.elements');
-const buttonAddImg = document.querySelector('.popup__button_for_add');
 const allPopups = Array.from(document.querySelectorAll('.popup'));
-const imgTemplate = document.querySelector('.img-template').content;
 export const popupElement = document.querySelector('.popup_for_img');
 export const popupImage = document.querySelector('.popup__img');
 export const popupImageTitle = document.querySelector('.popup__info-img');
 export const popupCloseButton = document.querySelector('.popup__close_for_img');
+const popups = document.querySelectorAll('.popup')
+
 const popupValidation = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -33,15 +29,28 @@ const popupValidation = {
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__input-error_active'
 };
-const formEditValidity = new Validity (popupValidation, formEdit);
-const formAddValidity = new Validity (popupValidation, formAdd);
 
-//функция, которая сбрасывает кнопку "сохранить"
-function resetButtonSave(popup, popupValidation) {
-    const buttonElement = popup.querySelector(popupValidation.submitButtonSelector);
-    buttonElement.classList.add(popupValidation.inactiveButtonClass);
-     buttonElement.disabled = true
+const formValidators = {}
+
+// Включение валидации
+const enableValidation = (popupValidation) => {
+  const formList = Array.from(document.querySelectorAll(popupValidation.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(popupValidation, formElement)
+// получаем данные из атрибута `name` у формы
+    const formName = formElement.getAttribute('name')
+   // вот тут в объект записываем под именем формы
+    formValidators[formName] = validator;
+   validator.enableValidation();
+  });
 };
+
+function handleCardClick(name, link) {
+  popupImage.src = link;
+  popupImage.alt = name;
+  popupImageTitle.textContent = name;
+  openModalWindow(popupElement);
+}
 
 //закрытие попапа через Escape
 export function closeEsc(evt) {
@@ -79,7 +88,18 @@ function handleEditPopupOpen() {
   openModalWindow(popupEditProfile);
   infoInput.value = profileInfo.textContent;
   nameInput.value = profileName.textContent;
-  resetButtonSave(popupEditProfile, popupValidation);
+  formValidators['form-info'].resetValidation()
+  formValidators['form-info'].makeButtonDisabled()
+  // formEditValidity.resetValidation();
+  // formEditValidity.makeButtonDisabled();
+};
+
+//открытие попапа добавления карточки
+function handleAddCardPopupOpen() {
+  openModalWindow(popupAddCard);
+  formAdd.reset();
+  formValidators['form-add'].resetValidation()
+  // formAddValidity.resetValidation();
 };
 
 //форма отправки имени и инфо
@@ -90,43 +110,45 @@ function handleEditFormSubmit(evt) {
   closeModalWindow(popupEditProfile);
 };
 
-//функция поиска картинки и её дабавления
+//функция генерации карточки
 function createCard(title, link) {
-  const card = imgTemplate.querySelector('.element').cloneNode(true);
-  const cardImg = card.querySelector('.element__img');
-  cardImg.src = link;
-  card.querySelector('.element__name').textContent = title;
-  cardImg.alt = title;
-  bindLikeButtonClickHandler(card);
-  bindDeleteButtonClickHandler(card);
-  cardImg.addEventListener('click', handleImagePreview);
-  return card;
+  const card = new Card(title, link, '.img-template', handleCardClick);
+  const cardElement = card.generateCard()
+  return cardElement;
 };
 
 //вызов функции добавления картинки через кнопку add
-buttonAddImg.addEventListener('click', function (evt) {
+formAdd.addEventListener('submit', function (evt) {
   evt.preventDefault();
-  const card = new Card(titleImage.value, linkImage.value, '.img-template');
-  const cardElement = card.generateCard()
-  blockCards.prepend(cardElement);
-  titleImage.value = '';
-  linkImage.value = '';
+  const title = titleImage.value;
+  const link = linkImage.value;
+  const card = createCard(title, link)
+  blockCards.prepend(card);
+  evt.target.reset();
   closeModalWindow(popupAddCard);
-  resetButtonSave(popupAddCard, popupValidation);
+  formValidators['form-add'].makeButtonDisabled()
+  //formAddValidity.makeButtonDisabled();
 });
 
-addBtnImage.addEventListener('click', () => { openModalWindow(popupAddCard); });
-editBtnProfile.addEventListener('click', handleEditPopupOpen);
-closePopupEdit.addEventListener('click', () => { closeModalWindow(popupEditProfile); });
-closePopupAdd.addEventListener('click', () => { closeModalWindow(popupAddCard); });
-imgClose.addEventListener('click', () => { closeModalWindow(popupZoomImage); });
-formEdit.addEventListener('submit', handleEditFormSubmit);
-document.addEventListener('keydown', closeEsc);
-closeClickOnOverlay();
-formEditValidity.enableValidation();
-formAddValidity.enableValidation();
-initialCards.forEach((item) => {
-  const card = new Card (item.name, item.link, '.img-template');
-  const cardElement = card.generateCard();
-  document.querySelector('.elements').prepend(cardElement);
+popups.forEach((popup) => {
+    popup.addEventListener('mousedown', (evt) => {
+        if (evt.target.classList.contains('popup_opened')) {
+          closeModalWindow(popup)
+        }
+        if (evt.target.classList.contains('popup__close')) {
+          closeModalWindow(popup)
+        }
+    })
 });
+
+initialCards.forEach((item) => {
+  const cardElement = createCard(item.name, item.link)
+  blockCards.prepend(cardElement);
+});
+
+addBtnImage.addEventListener('click', handleAddCardPopupOpen);
+editBtnProfile.addEventListener('click', handleEditPopupOpen);
+formEdit.addEventListener('submit', handleEditFormSubmit);
+enableValidation(popupValidation);
+
+// Геннадий, огромное спасибо за такое подробное и молниеносное ревью!

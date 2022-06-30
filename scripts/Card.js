@@ -2,10 +2,11 @@ import {popupImage, popupImageTitle, popupElement, popupCloseButton} from "./ind
 import {closeEsc} from "./index.js";
 
 export default class Card {
-  constructor(name, link, cardSelector) {
+  constructor(name, link, cardSelector, handleCardClick) {
     this._title = name;
     this._link = link;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -20,39 +21,17 @@ export default class Card {
 
   generateCard() {
     this._element = this._getTemplate();
-    this._img = this._element.querySelector('.element__img')
+    this._img = this._element.querySelector('.element__img');
     this._setEventListeners();
-    this._element.querySelector('.element__img').alt = this._link;
-    this._element.querySelector('.element__img').src = this._link;
+    this._img.alt = this._title;
+    this._img.src = this._link;
     this._element.querySelector('.element__name').textContent = this._title;
-
+    
     return this._element;
   }
 
-  _handleOpenPopup() {
-    popupImage.src = this._link;
-    popupImage.alt = this._link;
-    popupImageTitle.textContent = this._title;
-    popupElement.classList.add('popup_opened');
-    document.addEventListener('keydown', closeEsc);
-  }
-
-  _handleClosePopup() {
-    popupImage.src = '';
-    popupImage.alt = '';
-    popupImageTitle.textContent = '';
-    popupElement.classList.remove('popup_opened');
-    document.removeEventListener('keydown', closeEsc);
-  }
-
-  _handleClosePopupClickOnOverlay() {
-    if (popupElement.classList.contains('popup_opened')) {
-      this._handleClosePopup();
-    };
-  }
-
   _handleClickLikeButton() {
-    this._element.querySelector('.element__like').classList.toggle('element__like_click');
+    this._likeButton.classList.toggle('element__like_click');
   }
 
   _handleClickDeleteButton() {
@@ -60,17 +39,17 @@ export default class Card {
   }
 
   _setEventListeners() {
+    this._likeButton = this._element.querySelector('.element__like');
+    this._deleteButton = this._element.querySelector('.element__delete');
     this._img.addEventListener('click', () => {
-      this._handleOpenPopup()
+      this._handleCardClick(this._title, this._link)
     });
-    popupCloseButton.addEventListener('click', () => {
-      this._handleClosePopup()
-    });
-    this._element.querySelector('.element__delete').addEventListener('click', () => {
+    this._deleteButton.addEventListener('click', () => {
       this._handleClickDeleteButton();
     });
-    this._element.querySelector('.element__like').addEventListener('click', () => {
+    this._likeButton.addEventListener('click', () => {
       this._handleClickLikeButton();
     });
   };
 }
+

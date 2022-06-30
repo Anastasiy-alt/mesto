@@ -1,4 +1,4 @@
-export default class Validity {
+export default class FormValidator {
     constructor(formClassList, form) {
         this._form = formClassList;
         this._formElement = form;
@@ -68,5 +68,12 @@ export default class Validity {
             this._buttonElement.disabled = false;
         }
     };
+
+    resetValidation() {
+        this.toggleButtonState();
+        this._inputList.forEach((inputElement) => {
+          this._hideError(inputElement);
+        });
+      }  
 
 }
