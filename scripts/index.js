@@ -241,22 +241,22 @@ class PopupWithForm extends Popup {
 }
 
 class UserInfo {
-  constructor(userName, userInfo) {
+  constructor({userName, userInfo}) {
     this._userName = userName;
     this._userInfo = userInfo;
   }
 
   getUserInfo() {
-    this._userData = {};
-    this._userData['name'] = this._userName;
-    this._userData['info'] = this._userInfo;
-    console.log(this._userData);
-    return this._userData;
+    const userData = {};
+    userData['name'] = this._userName.textContent;
+    userData['info'] = this._userInfo.textContent;
+    console.log(this._userData); ///////////////
+    return userData;
   }
 
-  setUserInfo() {
-      profileName.textContent = this._userData.name;
-      profileInfo.textContent = this._userData.info;
+  setUserInfo(userData) {
+    this._userName.textContent = userData.name;
+    this._userInfo.textContent = userData.info;
   }
 }
   
