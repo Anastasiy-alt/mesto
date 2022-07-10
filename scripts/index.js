@@ -1,4 +1,10 @@
 import Card from './Card.js';
+import PopupWithForm from './PopupWithForm.js';
+import Section from './Section.js';
+import PopupWithImage from './PopupWithImage.js';
+import Popup from './Popup.js';
+import UserInfo from './UserInfo.js';
+
 import { initialCards } from "./cards.js";
 import FormValidator from './FormValidator.js';
 const editBtnProfile = document.querySelector('.profile__edit-button');
@@ -97,63 +103,6 @@ addBtnImage.addEventListener('click', handleAddCardPopupOpen);
 editBtnProfile.addEventListener('click', handleEditPopupOpen);
 enableValidation(popupValidation);
 
-class Section {
-  constructor({ items, renderer }, container) {
-    this._items = items;
-    this._renderer = renderer;
-    this._container = document.querySelector(container);
-  }
-
-  addItem(element) {
-    this._container.append(element);
-  }
-
-  renderItems() {
-    this._items.forEach(item => {
-      this._renderer(item);
-    });
-  }
-}
-
-class Popup {
-  constructor(popupSelector) {
-    this._popup = popupSelector;
-    this._escClose = this._handleEscClose.bind(this);
-  }
-
-  _handleEscClose(evt) { //bind
-    if (evt.key === 'Escape') {
-      this.close()
-    };
-  }
-
-  open() {
-    this._popup.classList.add('popup_opened');
-    document.addEventListener('keydown', () => {
-      this._escClose();
-    });
-  }
-
-  close() {
-    this._popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', () => {
-      this._escClose();
-    });
-  }
-
-  setEventListeners() {
-    const closeBtn = this._popup.querySelector('.popup__close');
-    closeBtn.addEventListener('click', () => {
-      this.close();
-    });
-    this._popup.addEventListener('mousedown', (evt) => {
-      if (evt.target.classList.contains('popup_opened')) {
-        this.close()
-      }
-    })
-  }
-}
-
 function handleAddCardPopupOpen() {
   const popupClass = new Popup(popupAddCard);
   popupClass.open();
@@ -161,21 +110,6 @@ function handleAddCardPopupOpen() {
   formValidators['form-add'].resetValidation();
   popupClass.setEventListeners();
 };
-
-class PopupWithImage extends Popup {
-  constructor(popupSelector) {
-    super(popupSelector);
-    this._imgLink = this._popup.querySelector('.popup__img');
-    this._imgName = this._popup.querySelector('.popup__info-img');
-  }
-
-  open(name, link) {
-    this._imgLink.src = link;
-    this._imgLink.alt = name;
-    this._imgName.textContent = name;
-    super.open();
-  }
-}
 
 //функция генерации карточки здесь изменить вызов класса
 function createCard(title, link) {
@@ -212,56 +146,7 @@ initialCards.forEach((item) => {
   blockCards.prepend(cardElement);
 });
 
-class PopupWithForm extends Popup {
-  constructor(popupSelector, submit) {
-    super(popupSelector);
-    this._submit = submit;
-  }
-
-  _getInputValues = (firstInput, secondInput) => {
-    const inputFirst = firstInput.value;
-    const inputSecond = secondInput.value;
-
-  }
-
-  setEventListeners() {
-    formAdd.addEventListener('submit', function (evt) {
-      evt.preventDefault();
-      const title = titleImageInput.value;
-      const link = linkImageInput.value;
-      const card = createCard(title, link);
-      blockCards.prepend(card);
-      evt.target.reset();
-      closeModalWindow(popupAddCard);});
-    }
-
-  close() {
-
-  }
-}
-
-class UserInfo {
-  constructor({userName, userInfo}) {
-    this._userName = userName;
-    this._userInfo = userInfo;
-  }
-
-  getUserInfo() {
-    const userData = {};
-    userData['name'] = this._userName.textContent;
-    userData['info'] = this._userInfo.textContent;
-    console.log(this._userData); ///////////////
-    return userData;
-  }
-
-  setUserInfo(userData) {
-    this._userName.textContent = userData.name;
-    this._userInfo.textContent = userData.info;
-  }
-}
-  
-  
-  const editProfile = new UserInfo(profileName.textContent, profileInfo.textContent);
+const editProfile = new UserInfo(profileName.textContent, profileInfo.textContent);
 console.log(nameInput.value, infoInput.value);
 
 function handleEditPopupOpen() {
