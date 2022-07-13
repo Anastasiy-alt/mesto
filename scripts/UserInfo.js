@@ -8,7 +8,6 @@ export default class UserInfo {
         const userData = {};
         userData['name'] = this._userName.textContent;
         userData['info'] = this._userInfo.textContent;
-        console.log(this._userData); ///////////////
         return userData;
     }
 
