@@ -4,37 +4,14 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
 import './index.css';
-
 import { initialCards } from "../utils/cards.js";
 import FormValidator from '../components/FormValidator.js';
-const editBtnProfile = document.querySelector('.profile__edit-button');
-const popupEditProfile = document.querySelector('.popup_for_edit');
-const popupAddCard = document.querySelector('.popup_for_add');
-const formEdit = document.querySelector('[name=form-info]');
-const formAdd = document.querySelector('[name=form-add]');
-const nameInput = document.querySelector('[name=name]');
-const infoInput = document.querySelector('[name=info]');
-const profileName = document.querySelector('.profile__name');
-const profileInfo = document.querySelector('.profile__info');
-const addBtnImage = document.querySelector('.profile__add-button');
-const titleImageInput = document.querySelector('[name=title]');
-const linkImageInput = document.querySelector('[name=link]');
-const blockCards = document.querySelector('.elements');
-const allPopups = Array.from(document.querySelectorAll('.popup'));
-const imagePopup = document.querySelector('.popup_for_img');
-const popupImage = document.querySelector('.popup__img');
-const popupImageTitle = document.querySelector('.popup__info-img');
-
-const popupValidation = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_type_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
-};
-const formValidators = {};
-
+import {
+  editBtnProfile, popupEditProfile, popupAddCard, nameInput,
+  infoInput, profileName, profileInfo, addBtnImage,
+  blockCards, imagePopup, popupValidation,
+  formValidators
+} from "../utils/constants.js";
 
 const userInfoPopup = new UserInfo({
   userName: profileName,
@@ -77,7 +54,6 @@ const submitAdd = (dataAddForm) => {
 };
 
 const handleAddCardPopup = new PopupWithForm(popupAddCard, submitAdd);
-
 handleAddCardPopup.setEventListeners();
 
 addBtnImage.addEventListener('click', () => {
