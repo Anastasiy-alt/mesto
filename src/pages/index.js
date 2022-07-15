@@ -13,13 +13,13 @@ import {
   formValidators
 } from "../utils/constants.js";
 
-const userInfoPopup = new UserInfo({
+const userInfo = new UserInfo({
   userName: profileName,
   userInfo: profileInfo
 });
 
 const submitEdit = (dataEditForm) => {
-  userInfoPopup.setUserInfo(dataEditForm);
+  userInfo.setUserInfo(dataEditForm);
   handleEditForm.close();
 }
 
@@ -28,8 +28,9 @@ handleEditForm.setEventListeners();
 
 editBtnProfile.addEventListener('click', () => {
   formValidators['form-info'].resetValidation();
-  infoInput.value = profileInfo.textContent;
-  nameInput.value = profileName.textContent;
+  const userData = userInfo.getUserInfo()
+  infoInput.value = userData.info;
+  nameInput.value = userData.name;
   handleEditForm.open();
 });
 
@@ -40,8 +41,8 @@ const createCard = (data) => {
   const card = new Card(
     {
       data: data,
-      handleCardClick: (title, Link) => {
-        zoomImg.open(title, Link);
+      handleCardClick: (name, link) => {
+        zoomImg.open(name, link);
       }
     }, '.img-template');
   const cardElement = card.generateCard();

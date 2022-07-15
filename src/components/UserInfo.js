@@ -9,6 +9,7 @@ export default class UserInfo {
         userData['name'] = this._userName.textContent;
         userData['info'] = this._userInfo.textContent;
         return userData;
+        
     }
 
     setUserInfo(userData) {
