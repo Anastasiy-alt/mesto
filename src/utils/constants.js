@@ -8,6 +8,7 @@ export const profileInfo = document.querySelector('.profile__info');
 export const addBtnImage = document.querySelector('.profile__add-button');
 export const blockCards = document.querySelector('.elements');
 export const imagePopup = document.querySelector('.popup_for_img');
+export const profileAvatar = document.querySelector('.profile__avatar');
 
 export const popupValidation = {
   formSelector: '.popup__form',

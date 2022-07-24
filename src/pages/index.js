@@ -4,14 +4,48 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
 import './index.css';
-import { initialCards } from "../utils/cards.js";
+import { initial } from "../utils/cards.js";
 import FormValidator from '../components/FormValidator.js';
 import {
   editBtnProfile, popupEditProfile, popupAddCard, nameInput,
   infoInput, profileName, profileInfo, addBtnImage,
   blockCards, imagePopup, popupValidation,
-  formValidators
+  formValidators, profileAvatar
 } from "../utils/constants.js";
+
+
+fetch('https://nomoreparties.co/v1/cohort-46/users/me', {
+  headers: {
+    authorization: '4ab555e1-39a0-48e6-8593-6e8a4a84e28f'
+  }
+})
+  .then(res => res.json())
+  .then((result) => {
+    profileName.textContent = result.name;
+    profileInfo.textContent = result.about;
+    profileAvatar.src = result.avatar;
+  });
+
+const initialCards = []; /////////////////////////////////
+fetch('https://mesto.nomoreparties.co/v1/cohort-46/cards', {
+  headers: {
+    authorization: '4ab555e1-39a0-48e6-8593-6e8a4a84e28f'
+  }
+})
+  .then(res => res.json())
+  .then((result) => {
+    result.forEach (function (item) {
+      const cardObj = {};
+      cardObj.title = item.name;
+      cardObj.link = item.link;
+      initialCards.push(cardObj);
+    })
+    return initialCards;
+  })
+//   console.log(initial);
+// console.log(initialCards);
+
+
 
 const userInfo = new UserInfo({
   userName: profileName,
@@ -63,13 +97,12 @@ addBtnImage.addEventListener('click', () => {
 })
 
 const сardsList = new Section({
-  items: initialCards,
   renderer: (item) => {
     сardsList.addItem(createCard(item));
   }
 }, blockCards);
 
-сardsList.renderItems();
+сardsList.renderItems(initialCards);
 
 // Включение валидации
 const enableValidation = (popupValidation) => {
