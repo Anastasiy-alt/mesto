@@ -22,18 +22,6 @@ const api = new Api({
   }
 });
 
-let userId;
-
-Promise.all([api.getInitialCards(), api.getUserInfo()])
-  .then(([initialCards, userData]) => {
-    userId = userData._id;
-    userInfo.setUserInfo(userData);
-    cardsList.renderItems(initialCards);
-  })
-  .catch((err) => {
-    console.log(`Ошибка: ${err}`);
-  });
-
 // fetch('https://nomoreparties.co/v1/cohort-46/users/me', {
 //   headers: {
 //     authorization: '4ab555e1-39a0-48e6-8593-6e8a4a84e28f'
@@ -72,19 +60,14 @@ const userInfo = new UserInfo({
 });
 
 const submitEdit = (dataEditForm) => {
-  api.setUserInfo(dataEditForm)
+  api.setUserInfo(dataEditForm, profileName, profileInfo, profileAvatar)
   .then((dataEditForm) => {
     userInfo.setUserInfo(dataEditForm);
     handleEditForm.close();
   })
-    .then((res) => {
-    profileName.textContent = res.name;
-    profileInfo.textContent = res.about;
-    profileAvatar.src = res.avatar;
-  })
-  .catch((err) => {
-    console.log(`Ошибка: ${err}`);
-  })
+  // .catch((err) => {
+  //   console.log(`Ошибка: ${err}`);
+  // })
 }
 
 const handleEditForm = new PopupWithForm(popupEditProfile, submitEdit);

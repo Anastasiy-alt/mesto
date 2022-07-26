@@ -42,20 +42,36 @@ export default class Api {
             .then(res => this._check(res))
     }
 
-    setUserInfo(userData) {
+    setUserInfo(userData, prName, prInfo, prLink) {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: this._headers,
             method: 'PATCH',
             body: JSON.stringify({
                 name: userData.name,
-                about: userData.info,
-                avatar: userData.avatar
+                about: userData.info
             })
         })
             .then(res => res.json())
             .then(res => this._check(res))
+            .then((result) => {
+                prName.textContent = result.name;
+                prInfo.textContent = result.about;
+                prLink.src = result.avatar;
+                  })
     }
 
+    addCard(cardData) {
+        return fetch(`${this._baseUrl}/cards`, {
+            method: 'POST',
+            headers: this._headers,
+            body: JSON.stringify({
+                name: cardData.name,
+                link: cardData.link
+            })
+        })
+            .then(res => res.json())
+            .then(res => this._check(res));
+    }
 
 }
 
