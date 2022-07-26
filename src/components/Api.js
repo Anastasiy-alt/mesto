@@ -42,15 +42,17 @@ export default class Api {
             .then(res => this._check(res))
     }
 
-    setUserInfo(profileName, profileInfo) {
+    setUserInfo(userData) {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: this._headers,
             method: 'PATCH',
             body: JSON.stringify({
-                name: profileName,
-                about: profileInfo
+                name: userData.name,
+                about: userData.info,
+                avatar: userData.avatar
             })
         })
+            .then(res => res.json())
             .then(res => this._check(res))
     }
 

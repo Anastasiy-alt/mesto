@@ -14,6 +14,25 @@ import {
   formValidators, profileAvatar
 } from "../utils/constants.js";
 
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-46',
+  headers: {
+    authorization: '4ab555e1-39a0-48e6-8593-6e8a4a84e28f',
+    'Content-Type': 'application/json'
+  }
+});
+
+let userId;
+
+Promise.all([api.getInitialCards(), api.getUserInfo()])
+  .then(([initialCards, userData]) => {
+    userId = userData._id;
+    userInfo.setUserInfo(userData);
+    cardsList.renderItems(initialCards);
+  })
+  .catch((err) => {
+    console.log(`Ошибка: ${err}`);
+  });
 
 // fetch('https://nomoreparties.co/v1/cohort-46/users/me', {
 //   headers: {
@@ -46,16 +65,26 @@ import {
 //   console.log(initial);
 // console.log(initialCards);
 
-
-
 const userInfo = new UserInfo({
   userName: profileName,
-  userInfo: profileInfo
+  userInfo: profileInfo,
+  userAvatar: profileAvatar
 });
 
 const submitEdit = (dataEditForm) => {
-  userInfo.setUserInfo(dataEditForm);
-  handleEditForm.close();
+  api.setUserInfo(dataEditForm)
+  .then((dataEditForm) => {
+    userInfo.setUserInfo(dataEditForm);
+    handleEditForm.close();
+  })
+    .then((res) => {
+    profileName.textContent = res.name;
+    profileInfo.textContent = res.about;
+    profileAvatar.src = res.avatar;
+  })
+  .catch((err) => {
+    console.log(`Ошибка: ${err}`);
+  })
 }
 
 const handleEditForm = new PopupWithForm(popupEditProfile, submitEdit);
@@ -103,7 +132,7 @@ const сardsList = new Section({
   }
 }, blockCards);
 
-сardsList.renderItems(initial); //////////////
+//сardsList.renderItems(initial); //////////////
 
 // Включение валидации
 const enableValidation = (popupValidation) => {
@@ -119,13 +148,3 @@ const enableValidation = (popupValidation) => {
 };
 
 enableValidation(popupValidation);
-
-const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-46',
-  headers: {
-    authorization: '4ab555e1-39a0-48e6-8593-6e8a4a84e28f',
-    'Content-Type': 'application/json'
-  }
-});
-
-api.setUserInfo(profileName, profileInfo);
