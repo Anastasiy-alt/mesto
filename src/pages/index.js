@@ -31,7 +31,6 @@ const userInfo = new UserInfo({
 
 
 const submitEdit = (dataEditForm) => {
-  
   api.setUserInfo(dataEditForm)
   .then((res) => {
       userInfo.setUserInfo(dataEditForm);
@@ -41,7 +40,6 @@ const submitEdit = (dataEditForm) => {
       profileAvatar.src = res.link;
     }
   )
-  
 }
 
 const handleEditForm = new PopupWithForm(popupEditProfile, submitEdit);
