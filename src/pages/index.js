@@ -31,10 +31,14 @@ const userInfo = new UserInfo({
 
 
 const submitEdit = (dataEditForm) => {
+  
   api.setUserInfo(dataEditForm)
-  .then((dataEditForm) => {
+  .then((res) => {
       userInfo.setUserInfo(dataEditForm);
       handleEditForm.close();
+      profileName.textContent = res.name;
+      profileInfo.textContent = res.about;
+      profileAvatar.src = res.link;
     }
   )
   
