@@ -1,3 +1,4 @@
+import Api from '../components/Api.js';
 import Card from '../components/Card.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import Section from '../components/Section.js';
@@ -14,34 +15,34 @@ import {
 } from "../utils/constants.js";
 
 
-fetch('https://nomoreparties.co/v1/cohort-46/users/me', {
-  headers: {
-    authorization: '4ab555e1-39a0-48e6-8593-6e8a4a84e28f'
-  }
-})
-  .then(res => res.json())
-  .then((result) => {
-    profileName.textContent = result.name;
-    profileInfo.textContent = result.about;
-    profileAvatar.src = result.avatar;
-  });
+// fetch('https://nomoreparties.co/v1/cohort-46/users/me', {
+//   headers: {
+//     authorization: '4ab555e1-39a0-48e6-8593-6e8a4a84e28f'
+//   }
+// })
+//   .then(res => res.json())
+//   .then((result) => {
+//     profileName.textContent = result.name;
+//     profileInfo.textContent = result.about;
+//     profileAvatar.src = result.avatar;
+//   });
 
-const initialCards = []; /////////////////////////////////
-fetch('https://mesto.nomoreparties.co/v1/cohort-46/cards', {
-  headers: {
-    authorization: '4ab555e1-39a0-48e6-8593-6e8a4a84e28f'
-  }
-})
-  .then(res => res.json())
-  .then((result) => {
-    result.forEach (function (item) {
-      const cardObj = {};
-      cardObj.title = item.name;
-      cardObj.link = item.link;
-      initialCards.push(cardObj);
-    })
-    return initialCards;
-  })
+// const initialCards = []; /////////////////////////////////
+// fetch('https://mesto.nomoreparties.co/v1/cohort-46/cards', {
+//   headers: {
+//     authorization: '4ab555e1-39a0-48e6-8593-6e8a4a84e28f'
+//   }
+// })
+//   .then(res => res.json())
+//   .then((result) => {
+//     result.forEach (function (item) {
+//       const cardObj = {};
+//       cardObj.title = item.name;
+//       cardObj.link = item.link;
+//       initialCards.push(cardObj);
+//     })
+//     return initialCards;
+//   })
 //   console.log(initial);
 // console.log(initialCards);
 
@@ -102,7 +103,7 @@ const сardsList = new Section({
   }
 }, blockCards);
 
-сardsList.renderItems(initialCards);
+сardsList.renderItems(initial); //////////////
 
 // Включение валидации
 const enableValidation = (popupValidation) => {
@@ -118,3 +119,13 @@ const enableValidation = (popupValidation) => {
 };
 
 enableValidation(popupValidation);
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-46',
+  headers: {
+    authorization: '4ab555e1-39a0-48e6-8593-6e8a4a84e28f',
+    'Content-Type': 'application/json'
+  }
+});
+
+api.setUserInfo(profileName, profileInfo);

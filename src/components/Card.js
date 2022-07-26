@@ -25,7 +25,17 @@ export default class Card {
     this._img.alt = this._title;
     this._img.src = this._link;
     this._imgName.textContent = this._title;
-
+    fetch('https://mesto.nomoreparties.co/v1/cohort-46/cards', {
+            method: 'POST',
+            headers: {
+                authorization: '4ab555e1-39a0-48e6-8593-6e8a4a84e28f',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: this._title,
+                link: this._link
+            })
+        });
     return this._element;
   }
 

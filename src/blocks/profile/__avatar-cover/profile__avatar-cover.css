@@ -1,0 +1,10 @@
+.profile__avatar-cover {
+    position: relative;
+    border-radius: 50%;
+    margin-right: 30px;
+    max-height: 120px;
+}
+
+.profile__avatar-cover:hover .profile__cover-hover{
+    display: block;
+}
