@@ -22,52 +22,22 @@ const api = new Api({
   }
 });
 
-// fetch('https://nomoreparties.co/v1/cohort-46/users/me', {
-//   headers: {
-//     authorization: '4ab555e1-39a0-48e6-8593-6e8a4a84e28f'
-//   }
-// })
-//   .then(res => res.json())
-//   .then((result) => {
-//     profileName.textContent = result.name;
-//     profileInfo.textContent = result.about;
-//     profileAvatar.src = result.avatar;
-//   });
-
-// const initialCards = []; /////////////////////////////////
-// fetch('https://mesto.nomoreparties.co/v1/cohort-46/cards', {
-//   headers: {
-//     authorization: '4ab555e1-39a0-48e6-8593-6e8a4a84e28f'
-//   }
-// })
-//   .then(res => res.json())
-//   .then((result) => {
-//     result.forEach (function (item) {
-//       const cardObj = {};
-//       cardObj.title = item.name;
-//       cardObj.link = item.link;
-//       initialCards.push(cardObj);
-//     })
-//     return initialCards;
-//   })
-//   console.log(initial);
-// console.log(initialCards);
-
 const userInfo = new UserInfo({
   userName: profileName,
   userInfo: profileInfo,
   userAvatar: profileAvatar
 });
 
+
+
 const submitEdit = (dataEditForm) => {
-  api.setUserInfo(dataEditForm, profileName, profileInfo, profileAvatar)
+  api.setUserInfo(dataEditForm)
   .then((dataEditForm) => {
-    userInfo.setUserInfo(dataEditForm);
-    handleEditForm.close();
-  })
-  // .catch((err) => {
-  //   console.log(`Ошибка: ${err}`);
-  // })
+      userInfo.setUserInfo(dataEditForm);
+      handleEditForm.close();
+    }
+  )
+  
 }
 
 const handleEditForm = new PopupWithForm(popupEditProfile, submitEdit);
@@ -115,7 +85,7 @@ const сardsList = new Section({
   }
 }, blockCards);
 
-//сardsList.renderItems(initial); //////////////
+сardsList.renderItems(initial);
 
 // Включение валидации
 const enableValidation = (popupValidation) => {

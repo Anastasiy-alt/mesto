@@ -42,7 +42,7 @@ export default class Api {
             .then(res => this._check(res))
     }
 
-    setUserInfo(userData, prName, prInfo, prLink) {
+    setUserInfo(userData) {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: this._headers,
             method: 'PATCH',
@@ -53,11 +53,7 @@ export default class Api {
         })
             .then(res => res.json())
             .then(res => this._check(res))
-            .then((result) => {
-                prName.textContent = result.name;
-                prInfo.textContent = result.about;
-                prLink.src = result.avatar;
-                  })
+            
     }
 
     addCard(cardData) {
