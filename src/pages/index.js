@@ -5,7 +5,6 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
 import './index.css';
-// import { initialCards } from "../utils/cards.js";
 import FormValidator from '../components/FormValidator.js';
 import {
   editBtnProfile, popupEditProfile, popupAddCard, nameInput,
@@ -13,6 +12,18 @@ import {
   blockCards, imagePopup, popupValidation,
   formValidators, profileAvatar
 } from "../utils/constants.js";
+
+const popupDeleteCard = document.querySelector('.popup_for_delete');
+const popupEditAvatar = document.querySelector('.popup_for_avatar');
+const editAvatarBtn = document.querySelector('.profile__cover-hover');
+const avatarInput = document.querySelector('.popup__item_input_link-avatar');
+
+editAvatarBtn.addEventListener('click', () => {
+  formValidators['form-avatar'].resetValidation();
+  const userData = userInfo.getUserInfo()
+  avatarInput.value = userData.avatar;
+  handleEditAvatar.open();
+})
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-46',
@@ -43,7 +54,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     console.log(`Ошибка: ${error}`);
   });
 
-const submitEdit = (dataEditForm) => {
+const submitEdit = (dataEditForm) => { //edit
   api.setUserInfo(dataEditForm)
   .then((dataEditForm) => {
       userInfo.setUserInfo(dataEditForm);
@@ -52,8 +63,21 @@ const submitEdit = (dataEditForm) => {
   )
 }
 
-const handleEditForm = new PopupWithForm(popupEditProfile, submitEdit);
+const submitAvatar = (dataAvatarForm) => { //avatar
+  api.setUserAvatar(dataAvatarForm)
+  .then((dataAvatarForm) => {
+    console.log(dataAvatarForm)
+      userInfo.setUserInfo(dataAvatarForm);
+      handleEditAvatar.close();
+    }
+  )
+}
+
+const handleEditForm = new PopupWithForm(popupEditProfile, submitEdit); //editform
 handleEditForm.setEventListeners();
+
+const handleEditAvatar = new PopupWithForm(popupEditAvatar, submitAvatar); //avatar
+handleEditAvatar.setEventListeners();
 
 editBtnProfile.addEventListener('click', () => {
   formValidators['form-info'].resetValidation();
