@@ -5,7 +5,7 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
 import './index.css';
-import { initial } from "../utils/cards.js";
+// import { initialCards } from "../utils/cards.js";
 import FormValidator from '../components/FormValidator.js';
 import {
   editBtnProfile, popupEditProfile, popupAddCard, nameInput,
@@ -22,11 +22,26 @@ const api = new Api({
   }
 });
 
+const сardsList = new Section({
+  renderer: (item) => {
+    сardsList.addItem(createCard(item));
+  }
+}, blockCards);
+
 const userInfo = new UserInfo({
   userName: profileName,
   userInfo: profileInfo,
   userAvatar: profileAvatar
 });
+
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, initialCards]) => {
+    userInfo.setUserInfo(userData);
+    сardsList.renderItems(initialCards);
+  })
+  .catch((error) => {
+    console.log(`Ошибка: ${error}`);
+  });
 
 const submitEdit = (dataEditForm) => {
   api.setUserInfo(dataEditForm)
@@ -76,13 +91,9 @@ addBtnImage.addEventListener('click', () => {
   handleAddCardPopup.open();
 })
 
-const сardsList = new Section({
-  renderer: (item) => {
-    сardsList.addItem(createCard(item));
-  }
-}, blockCards);
 
-сardsList.renderItems(initial);
+
+// сardsList.renderItems(initialCards);
 
 // Включение валидации
 const enableValidation = (popupValidation) => {

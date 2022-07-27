@@ -10,32 +10,31 @@ export default class Api {
         // если ошибка, отклоняем промис
         return Promise.reject(`Ошибка: ${res.status}`);
     }
-    // getInitialCards() {
-    //     return fetch(`${this._baseUrl}/cards`, {
-    //         headers: this._headers,
-    //         method: 'GET'
-    //     })
-    //         .then(res => this._check(res))
-    //         .then((result) => {
-    //             result.forEach(function (item) {
-    //                 const cardObj = {};
-    //                 cardObj.title = item.name;
-    //                 cardObj.link = item.link;
-    //                 initialCards.push(cardObj);
-    //             })
-    //             return initialCards;
-    //         })
-    // }
+    getInitialCards() {
+        return fetch(`${this._baseUrl}/cards`, {
+            headers: this._headers,
+            method: 'GET'
+        })
+        .then(res => this._check(res))
+    }
 
-    // setInitialCards() {
+    addInitialCards(cardData) {
+        return fetch(`${this._baseUrl}/cards`, {
+            headers: this._headers,
+            method: 'POST',
+            body: JSON.stringify({
+                name: cardData.title,
+                link: cardData.link
+            })
+        })
+        .then(res => this._check(res))
 
-    // }
+    }
     getUserInfo() {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: this._headers,
             method: 'GET'
         })
-            .then(res => res.json())
             .then(res => this._check(res))
     }
 
@@ -48,7 +47,7 @@ export default class Api {
                 about: userData.info
             })
         })
-            .then(res => this._check(res))   
+            .then(res => this._check(res))
     }
 
     addCard(cardData) {
