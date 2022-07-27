@@ -45,7 +45,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html'
+      template: './src/index.html',
+      title: 'Development'
     }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin(),

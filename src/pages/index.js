@@ -28,16 +28,11 @@ const userInfo = new UserInfo({
   userAvatar: profileAvatar
 });
 
-
-
 const submitEdit = (dataEditForm) => {
   api.setUserInfo(dataEditForm)
-  .then((res) => {
+  .then((dataEditForm) => {
       userInfo.setUserInfo(dataEditForm);
       handleEditForm.close();
-      profileName.textContent = res.name;
-      profileInfo.textContent = res.about;
-      profileAvatar.src = res.link;
     }
   )
 }
