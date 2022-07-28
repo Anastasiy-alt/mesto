@@ -28,7 +28,9 @@ const api = new Api({
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, initialCards]) => {
     userInfo.setUserInfo(userData);
-    сardsList.renderItems(initialCards);
+    сardsList.renderItems(initialCards.reverse());
+    // arrayCard.reverse();
+
   })
   .catch((error) => {
     console.log(`Ошибка: ${error}`);
@@ -45,7 +47,7 @@ const userInfo = new UserInfo({
 //User profile//
 
 const submitEdit = (dataEditForm) => { //edit
-  handleEditForm.loadData(true)
+  handleEditForm.isLoading(true)
   api.setUserInfo(dataEditForm)
     .then((dataEditForm) => {
       userInfo.setUserInfo(dataEditForm);
@@ -55,7 +57,7 @@ const submitEdit = (dataEditForm) => { //edit
       console.log(err); // выведем ошибку в консоль
     })
     .finally(() => {
-      handleEditForm.loadData(false);
+      handleEditForm.isLoading(false);
     });
 }
 
@@ -72,14 +74,10 @@ editBtnProfile.addEventListener('click', () => {
 
 //User avatar//
 
-const handleEditAvatar = new PopupWithForm(popupEditAvatar, submitAvatar); //avatar
-handleEditAvatar.setEventListeners();
-
 const submitAvatar = (dataAvatarForm) => { //avatar
-  handleEditAvatar.loadData(true)
+  handleEditAvatar.isLoading(true)
   api.setUserAvatar(dataAvatarForm)
     .then((dataAvatarForm) => {
-      console.log(dataAvatarForm)
       userInfo.setUserInfo(dataAvatarForm);
       handleEditAvatar.close();
     })
@@ -87,9 +85,12 @@ const submitAvatar = (dataAvatarForm) => { //avatar
       console.log(err); // выведем ошибку в консоль
     })
     .finally(() => {
-      handleEditAvatar.loadData(false);
+      handleEditAvatar.isLoading(false);
     });
 }
+
+const handleEditAvatar = new PopupWithForm(popupEditAvatar, submitAvatar); //avatar
+handleEditAvatar.setEventListeners();
 
 editAvatarBtn.addEventListener('click', () => {
   formValidators['form-avatar'].resetValidation();
@@ -159,7 +160,7 @@ const createCard = (data) => {
 //Add card//
 
 const submitAdd = (dataAddForm) => {
-  handleAddCardPopup.loadData(true)
+  handleAddCardPopup.isLoading(true)
   api.addInitialCards(dataAddForm)
     .then((dataAddForm) => {
       сardsList.addItem(createCard(dataAddForm));
@@ -169,7 +170,7 @@ const submitAdd = (dataAddForm) => {
       console.log(err); // выведем ошибку в консоль
     })
     .finally(() => {
-      handleAddCardPopup.loadData(false);
+      handleAddCardPopup.isLoading(false);
     });
 };
 
