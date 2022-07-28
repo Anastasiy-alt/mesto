@@ -3,6 +3,7 @@ export default class Api {
         this._baseUrl = options.baseUrl;
         this._headers = options.headers;
     }
+
     _check(res) {
         if (res.ok) {
             return res.json();
@@ -10,12 +11,13 @@ export default class Api {
         // если ошибка, отклоняем промис
         return Promise.reject(`Ошибка: ${res.status}`);
     }
+
     getInitialCards() {
         return fetch(`${this._baseUrl}/cards`, {
             headers: this._headers,
             method: 'GET'
         })
-        .then(res => this._check(res))
+            .then(res => this._check(res))
     }
 
     addInitialCards(cardData) {
@@ -27,7 +29,7 @@ export default class Api {
                 link: cardData.link
             })
         })
-        .then(res => this._check(res))
+            .then(res => this._check(res))
 
     }
     getUserInfo() {
@@ -62,7 +64,7 @@ export default class Api {
             .then(res => this._check(res));
     }
 
-    setUserAvatar (userData) {
+    setUserAvatar(userData) {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
             headers: this._headers,
             method: 'PATCH',
@@ -73,13 +75,28 @@ export default class Api {
             .then(res => this._check(res))
     }
 
-    deleteCard (cardId) {
+    deleteCard(cardId) {
         return fetch(`${this._baseUrl}/cards/${cardId}`, {
             method: 'DELETE',
             headers: this._headers,
         })
-        .then(res => this._check(res))
+            .then(res => this._check(res))
+    }
+
+    putLike(cardId) {
+        return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+            method: 'PUT',
+            headers: this._headers,
+        })
+            .then(res => this._check(res))
+    }
+
+    deleteLike(cardId) {
+        return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+            method: 'DELETE',
+            headers: this._headers,
+        })
+            .then(res => this._check(res))
     }
 
 }
-

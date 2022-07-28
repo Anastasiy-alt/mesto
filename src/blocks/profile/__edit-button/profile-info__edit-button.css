@@ -2,7 +2,7 @@
     border: 1px solid #FFFFFF;
     padding: 0;
     margin: 0;
-    background-color: #000;
+    background-color: transparent;
     width: clamp(18px, calc(0.01875 * 100vw), 24px);
     height: clamp(18px, calc(0.01875 * 100vw), 24px);
     background-image: url(../../../images/Vector-edit.svg);

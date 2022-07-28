@@ -11,20 +11,11 @@ import {
   editBtnProfile, popupEditProfile, popupAddCard, nameInput,
   infoInput, profileName, profileInfo, addBtnImage,
   blockCards, imagePopup, popupValidation,
-  formValidators, profileAvatar
+  formValidators, profileAvatar, popupDeleteCard,
+  popupEditAvatar, editAvatarBtn, avatarInput
 } from "../utils/constants.js";
 
-const popupDeleteCard = document.querySelector('.popup_for_delete');
-const popupEditAvatar = document.querySelector('.popup_for_avatar');
-const editAvatarBtn = document.querySelector('.profile__cover-hover');
-const avatarInput = document.querySelector('.popup__item_input_link-avatar');
-
-editAvatarBtn.addEventListener('click', () => {
-  formValidators['form-avatar'].resetValidation();
-  const userData = userInfo.getUserInfo()
-  avatarInput.value = userData.avatar;
-  handleEditAvatar.open();
-})
+//Api//
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-46',
@@ -32,18 +23,6 @@ const api = new Api({
     authorization: '4ab555e1-39a0-48e6-8593-6e8a4a84e28f',
     'Content-Type': 'application/json'
   }
-});
-
-const сardsList = new Section({
-  renderer: (item) => {
-    сardsList.addItem(createCard(item));
-  }
-}, blockCards);
-
-const userInfo = new UserInfo({
-  userName: profileName,
-  userInfo: profileInfo,
-  userAvatar: profileAvatar
 });
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -55,7 +34,18 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     console.log(`Ошибка: ${error}`);
   });
 
+//User info//
+
+const userInfo = new UserInfo({
+  userName: profileName,
+  userInfo: profileInfo,
+  userAvatar: profileAvatar
+});
+
+//User profile//
+
 const submitEdit = (dataEditForm) => { //edit
+  handleEditForm.loadData(true)
   api.setUserInfo(dataEditForm)
     .then((dataEditForm) => {
       userInfo.setUserInfo(dataEditForm);
@@ -63,26 +53,14 @@ const submitEdit = (dataEditForm) => { //edit
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
-    });
-}
-
-const submitAvatar = (dataAvatarForm) => { //avatar
-  api.setUserAvatar(dataAvatarForm)
-    .then((dataAvatarForm) => {
-      console.log(dataAvatarForm)
-      userInfo.setUserInfo(dataAvatarForm);
-      handleEditAvatar.close();
     })
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
+    .finally(() => {
+      handleEditForm.loadData(false);
     });
 }
 
-const handleEditForm = new PopupWithForm(popupEditProfile, submitEdit); //editform
+const handleEditForm = new PopupWithForm(popupEditProfile, submitEdit);
 handleEditForm.setEventListeners();
-
-const handleEditAvatar = new PopupWithForm(popupEditAvatar, submitAvatar); //avatar
-handleEditAvatar.setEventListeners();
 
 editBtnProfile.addEventListener('click', () => {
   formValidators['form-info'].resetValidation();
@@ -92,10 +70,46 @@ editBtnProfile.addEventListener('click', () => {
   handleEditForm.open();
 });
 
+//User avatar//
+
+const handleEditAvatar = new PopupWithForm(popupEditAvatar, submitAvatar); //avatar
+handleEditAvatar.setEventListeners();
+
+const submitAvatar = (dataAvatarForm) => { //avatar
+  handleEditAvatar.loadData(true)
+  api.setUserAvatar(dataAvatarForm)
+    .then((dataAvatarForm) => {
+      console.log(dataAvatarForm)
+      userInfo.setUserInfo(dataAvatarForm);
+      handleEditAvatar.close();
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    })
+    .finally(() => {
+      handleEditAvatar.loadData(false);
+    });
+}
+
+editAvatarBtn.addEventListener('click', () => {
+  formValidators['form-avatar'].resetValidation();
+  const userData = userInfo.getUserInfo()
+  avatarInput.value = userData.avatar;
+  handleEditAvatar.open();
+})
+
+//Cards//
+
+const сardsList = new Section({
+  renderer: (item) => {
+    сardsList.addItem(createCard(item));
+  }
+}, blockCards);
+
 const zoomImg = new PopupWithImage(imagePopup);
 zoomImg.setEventListeners();
 
-const handleDeleteCard = new PopupDeleteCard (popupDeleteCard);
+const handleDeleteCard = new PopupDeleteCard(popupDeleteCard);
 handleDeleteCard.setEventListeners();
 
 const createCard = (data) => {
@@ -110,29 +124,53 @@ const createCard = (data) => {
         handleDeleteCard.open();
         handleDeleteCard.submitDelete(() => {
           api.deleteCard(cardId)
-          .then(() => {
-            handleDeleteCard.close();
-            card.handleClickDeleteButton();
+            .then(() => {
+              handleDeleteCard.close();
+              card.handleClickDeleteButton();
+            })
+            .catch((err) => {
+              console.log(err); // выведем ошибку в консоль
+            });
+        })
+      },
+      handlePutLike: (cardId) => {
+        api.putLike(cardId)
+          .then((likes) => {
+            card.handleClickLikeButton(likes);
           })
           .catch((err) => {
-            console.log(err); // выведем ошибку в консоль
+            console.log(err);
           });
-        })
+      },
+      handleDeleteLike: (cardId) => {
+        api.deleteLike(cardId)
+          .then((likes) => {
+            card.handleClickLikeButton(likes);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }
     }, '.img-template');
   const cardElement = card.generateCard();
   return cardElement;
 };
 
+//Add card//
+
 const submitAdd = (dataAddForm) => {
+  handleAddCardPopup.loadData(true)
   api.addInitialCards(dataAddForm)
-  .then((dataAddForm) => {
-  сardsList.addItem(createCard(dataAddForm));
-  handleAddCardPopup.close();
-  })
-  .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
-  });
+    .then((dataAddForm) => {
+      сardsList.addItem(createCard(dataAddForm));
+      handleAddCardPopup.close();
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    })
+    .finally(() => {
+      handleAddCardPopup.loadData(false);
+    });
 };
 
 const handleAddCardPopup = new PopupWithForm(popupAddCard, submitAdd);
@@ -143,7 +181,8 @@ addBtnImage.addEventListener('click', () => {
   handleAddCardPopup.open();
 })
 
-// Включение валидации
+//Validation//
+
 const enableValidation = (popupValidation) => {
   const formList = Array.from(document.querySelectorAll(popupValidation.formSelector))
   formList.forEach((formElement) => {

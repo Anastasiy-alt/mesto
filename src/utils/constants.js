@@ -9,6 +9,10 @@ export const addBtnImage = document.querySelector('.profile__add-button');
 export const blockCards = document.querySelector('.elements');
 export const imagePopup = document.querySelector('.popup_for_img');
 export const profileAvatar = document.querySelector('.profile__avatar');
+export const popupDeleteCard = document.querySelector('.popup_for_delete');
+export const popupEditAvatar = document.querySelector('.popup_for_avatar');
+export const editAvatarBtn = document.querySelector('.profile__cover-hover');
+export const avatarInput = document.querySelector('.popup__item_input_link-avatar');
 
 export const popupValidation = {
   formSelector: '.popup__form',

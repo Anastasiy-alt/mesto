@@ -1,4 +1,10 @@
 .popup__container_for_delete {
-    width: 430px;
     height: 181px;
+}
+
+@media screen and (max-width: 625px) {
+    .popup__container_for_delete {
+        min-height: 160px;
+        height: auto;
+    }
 }
