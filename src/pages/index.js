@@ -4,6 +4,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
+import PopupDeleteCard from '../components/PopupDeleteCard.js';
 import './index.css';
 import FormValidator from '../components/FormValidator.js';
 import {
@@ -56,21 +57,25 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
 const submitEdit = (dataEditForm) => { //edit
   api.setUserInfo(dataEditForm)
-  .then((dataEditForm) => {
+    .then((dataEditForm) => {
       userInfo.setUserInfo(dataEditForm);
       handleEditForm.close();
-    }
-  )
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    });
 }
 
 const submitAvatar = (dataAvatarForm) => { //avatar
   api.setUserAvatar(dataAvatarForm)
-  .then((dataAvatarForm) => {
-    console.log(dataAvatarForm)
+    .then((dataAvatarForm) => {
+      console.log(dataAvatarForm)
       userInfo.setUserInfo(dataAvatarForm);
       handleEditAvatar.close();
-    }
-  )
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    });
 }
 
 const handleEditForm = new PopupWithForm(popupEditProfile, submitEdit); //editform
@@ -90,12 +95,29 @@ editBtnProfile.addEventListener('click', () => {
 const zoomImg = new PopupWithImage(imagePopup);
 zoomImg.setEventListeners();
 
+const handleDeleteCard = new PopupDeleteCard (popupDeleteCard);
+handleDeleteCard.setEventListeners();
+
 const createCard = (data) => {
   const card = new Card(
     {
       data: data,
+      userId: userInfo.getUserId(),
       handleCardClick: (name, link) => {
         zoomImg.open(name, link);
+      },
+      handleDeleteCard: (cardId) => {
+        handleDeleteCard.open();
+        handleDeleteCard.submitDelete(() => {
+          api.deleteCard(cardId)
+          .then(() => {
+            handleDeleteCard.close();
+            card.handleClickDeleteButton();
+          })
+          .catch((err) => {
+            console.log(err); // выведем ошибку в консоль
+          });
+        })
       }
     }, '.img-template');
   const cardElement = card.generateCard();
@@ -103,8 +125,14 @@ const createCard = (data) => {
 };
 
 const submitAdd = (dataAddForm) => {
+  api.addInitialCards(dataAddForm)
+  .then((dataAddForm) => {
   сardsList.addItem(createCard(dataAddForm));
   handleAddCardPopup.close();
+  })
+  .catch((err) => {
+    console.log(err); // выведем ошибку в консоль
+  });
 };
 
 const handleAddCardPopup = new PopupWithForm(popupAddCard, submitAdd);
@@ -114,10 +142,6 @@ addBtnImage.addEventListener('click', () => {
   formValidators['form-add'].resetValidation();
   handleAddCardPopup.open();
 })
-
-
-
-// сardsList.renderItems(initialCards);
 
 // Включение валидации
 const enableValidation = (popupValidation) => {

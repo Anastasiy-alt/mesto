@@ -23,7 +23,7 @@ export default class Api {
             headers: this._headers,
             method: 'POST',
             body: JSON.stringify({
-                name: cardData.title,
+                name: cardData.name,
                 link: cardData.link
             })
         })
@@ -59,7 +59,6 @@ export default class Api {
                 link: cardData.link
             })
         })
-            .then(res => res.json())
             .then(res => this._check(res));
     }
 
@@ -72,6 +71,14 @@ export default class Api {
             })
         })
             .then(res => this._check(res))
+    }
+
+    deleteCard (cardId) {
+        return fetch(`${this._baseUrl}/cards/${cardId}`, {
+            method: 'DELETE',
+            headers: this._headers,
+        })
+        .then(res => this._check(res))
     }
 
 }

@@ -3,6 +3,7 @@ export default class UserInfo {
         this._userName = userName;
         this._userInfo = userInfo;
         this._userAvatar = userAvatar;
+
     }
 
     getUserInfo() {
@@ -10,14 +11,19 @@ export default class UserInfo {
         userData['name'] = this._userName.textContent;
         userData['info'] = this._userInfo.textContent;
         userData['avatar'] = this._userAvatar.src;
+        // userData['_id'] = this._userid;
         return userData;
+    }
 
+    getUserId() {
+        return this._userid;
     }
 
     setUserInfo(userData) {
         this._userName.textContent = userData.name;
         this._userInfo.textContent = userData.about;
         this._userAvatar.src = userData.avatar;
+        this._userid = userData._id;
     }
 
 }
